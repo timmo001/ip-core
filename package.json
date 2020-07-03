@@ -1,0 +1,53 @@
+{
+  "name": "upaas",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Lorem ipsum",
+  "license": "MIT",
+  "scripts": {
+    "compile": "shx rm -rf dist/ && tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "start": "yarn run compile && node dist/main",
+    "start:dev": "nodemon --watch src",
+    "start:prod": "node dist/main",
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "@types/node": "14.0.14",
+    "eslint": "7.3.1",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "jest": "26.1.0",
+    "nodemon": "2.0.4",
+    "prettier": "2.0.5",
+    "shx": "0.3.2",
+    "ts-jest": "26.1.1",
+    "ts-loader": "7.0.5",
+    "ts-node": "8.10.2",
+    "tsconfig-paths": "3.9.0",
+    "typescript": "3.9.5"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}

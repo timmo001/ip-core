@@ -35,7 +35,7 @@ export default class Services extends Base {
           return;
         }
         this.logger.info(`Run Service: ${service.name} (${serviceKey})`);
-        this.logger.info(`Description: ${service.description}`);
+        this.logger.debug(`Description: ${service.description}`);
       }
     );
   };

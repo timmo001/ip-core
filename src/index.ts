@@ -1,9 +1,23 @@
+import { createLogger, format, transports } from 'winston';
 import * as fs from 'fs';
 import * as YAML from 'yaml';
 
-import logger from './logger';
+import Config from './Types/Config';
 import Main from './Main';
 
-const config = YAML.parse(fs.readFileSync('./upaas_config.yaml', 'utf8'));
+const config: Config = YAML.parse(
+  fs.readFileSync('./upaas_config.yaml', 'utf8')
+);
+
+const logger = createLogger({
+  level: config.log_level,
+  format: format.combine(
+    format.colorize(),
+    format.json(),
+    format.simple(),
+    format.splat()
+  ),
+  transports: [new transports.Console()],
+});
 
 new Main(logger, config);

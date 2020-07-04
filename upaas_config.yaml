@@ -1,3 +1,4 @@
 ---
+log_level: 'debug'
 services_directory: '../upaas_services'
 socket_port: 1337

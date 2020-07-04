@@ -17,6 +17,11 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:watch": "jest --watch"
   },
+  "dependencies": {
+    "logform": "2.2.0",
+    "winston": "3.3.3",
+    "ws": "7.3.0"
+  },
   "devDependencies": {
     "@types/logform": "1.10.1",
     "@types/node": "14.0.14",
@@ -51,9 +56,5 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  },
-  "dependencies": {
-    "logform": "2.2.0",
-    "winston": "3.3.3"
   }
 }

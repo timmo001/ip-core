@@ -6490,6 +6490,7 @@ typescript@3.9.5:
     tsconfig-paths: 3.9.0
     typescript: 3.9.5
     winston: 3.3.3
+    ws: 7.3.0
   languageName: unknown
   linkType: soft
 
@@ -6798,7 +6799,7 @@ typescript@3.9.5:
   languageName: node
   linkType: hard
 
-"ws@npm:^7.2.3":
+"ws@npm:7.3.0, ws@npm:^7.2.3":
   version: 7.3.0
   resolution: "ws@npm:7.3.0"
   peerDependencies:

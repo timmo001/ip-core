@@ -40,7 +40,4 @@ export default class Services extends Base {
     );
   };
 
-  runCustomService = (data: GenericObject) => {
-    this.logger.info('Run Custom Service');
-  };
 }

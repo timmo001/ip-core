@@ -29,14 +29,5 @@ export default class Events extends Base {
       }
       this.services.runService(event.serviceKey, event.data);
     }
-    if (event.type === 'custom') {
-      if (!event.data) {
-        this.logger.warn(
-          'No data provided for custom event. Will not continue'
-        );
-        return;
-      }
-      this.services.runCustomService(event.data);
-    }
   };
 }

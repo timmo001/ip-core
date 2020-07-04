@@ -786,6 +786,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/ws@npm:7.2.6":
+  version: 7.2.6
+  resolution: "@types/ws@npm:7.2.6"
+  dependencies:
+    "@types/node": "*"
+  checksum: 2f7c358c4b2798f1885c3edecf4b09ecfa35933eff0c37bf8b99eab722032db5c1ab9e26899d13f035a8cf1d92a681578016c8837c5e6725892c24ee10f2f63f
+  languageName: node
+  linkType: hard
+
 "@types/yargs-parser@npm:*":
   version: 15.0.0
   resolution: "@types/yargs-parser@npm:15.0.0"
@@ -1094,6 +1103,15 @@ __metadata:
   version: 1.10.0
   resolution: "aws4@npm:1.10.0"
   checksum: f8c20a0031a2ae88bb29a89d5e5f8139eb0cc8aa964d0a8d69a476a4b0f6cf3954e3dd40bd08cea69c95ee31e2e69226d82e804628261a2375223ac67582009d
+  languageName: node
+  linkType: hard
+
+"axios@npm:0.19.2":
+  version: 0.19.2
+  resolution: "axios@npm:0.19.2"
+  dependencies:
+    follow-redirects: 1.5.10
+  checksum: bad346deea24050f9953ce09bb8015f85a99a7b8f016806adccfab0b8981827d1fbee9c77c0ef7c70cc48392c1af6bbc65e07c3e88221d17282d2d5fd0a191f6
   languageName: node
   linkType: hard
 
@@ -1734,6 +1752,15 @@ __metadata:
     whatwg-mimetype: ^2.3.0
     whatwg-url: ^8.0.0
   checksum: 42239927c6a202e2d02b7f41c94ca53e3cea036898b97b8bf6120ed1b25e0dd11c48ec7aa5c84cf807c2cb9f3a637df9fb50f3ca25a52863186a4ac46254726b
+  languageName: node
+  linkType: hard
+
+"debug@npm:=3.1.0":
+  version: 3.1.0
+  resolution: "debug@npm:3.1.0"
+  dependencies:
+    ms: 2.0.0
+  checksum: 1295acd5e0531761255661d325cd0a80ac8c5f6de8942a53bb23c2197ccb97526972de662ed0e5d9393be83f3428a298a6e7185ecb02f0da6282019cd2ffb4a8
   languageName: node
   linkType: hard
 
@@ -2569,6 +2596,15 @@ __metadata:
   version: 1.1.0
   resolution: "fn.name@npm:1.1.0"
   checksum: e33a39ffd68424b58d849cb3672c2ed9c4f8dadf0ef9416d5b5d9b8877258c1aa0f42554aaa2d15e87bcb5892ce4d4f78bdbbc5856f5a2b79fc31a10b6e69c8f
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:1.5.10":
+  version: 1.5.10
+  resolution: "follow-redirects@npm:1.5.10"
+  dependencies:
+    debug: =3.1.0
+  checksum: 6e58e02c31337b6b41ffc3d5f3d49920b7db428eddcf374537da00ef121fe473983e12d8557f4304287604168d3efcc288d1f009abaf4c9d61e5db0c0cee3c4a
   languageName: node
   linkType: hard
 
@@ -6468,6 +6504,16 @@ typescript@3.9.5:
   languageName: node
   linkType: hard
 
+"upaas-core-plugins@npm:0.0.7":
+  version: 0.0.7
+  resolution: "upaas-core-plugins@npm:0.0.7"
+  dependencies:
+    axios: 0.19.2
+    ws: 7.3.0
+  checksum: 81945dfe9f4764c568e3c8d6caeee0973002146b28aff8161a393ed6d242fb055e8fa37ea1bbd0229b9484e0126ab31970bd9f5f594e25cd9a91fd9cdb0c8cf5
+  languageName: node
+  linkType: hard
+
 "upaas@workspace:.":
   version: 0.0.0-use.local
   resolution: "upaas@workspace:."
@@ -6475,6 +6521,7 @@ typescript@3.9.5:
     "@types/logform": 1.10.1
     "@types/node": 14.0.14
     "@types/winston": 2.4.4
+    "@types/ws": 7.2.6
     eslint: 7.3.1
     eslint-config-prettier: 6.11.0
     eslint-plugin-import: 2.22.0
@@ -6489,6 +6536,7 @@ typescript@3.9.5:
     ts-node: 8.10.2
     tsconfig-paths: 3.9.0
     typescript: 3.9.5
+    upaas-core-plugins: 0.0.7
     winston: 3.3.3
     ws: 7.3.0
     yaml: 1.10.0

@@ -1,3 +1,3 @@
 export default interface GenericObject {
-  [key: string]: any;
+  [key: string]: any | undefined;
 }

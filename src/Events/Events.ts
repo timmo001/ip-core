@@ -3,11 +3,14 @@ import { Logger } from 'winston';
 import Base from '../Base';
 import Server from '../WebSocket/Server';
 
-export interface ServiceEventData {}
+export interface ServiceEventData {
+  [key: string]: any;
+}
 
 export interface EventPayload {
   event: 'service' | 'custom';
-  data: ServiceEventData | unknown;
+  serviceKey?: string;
+  data?: ServiceEventData;
 }
 
 export default class Events extends Base {

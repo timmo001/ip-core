@@ -24,6 +24,5 @@ export default class Events extends Base {
 
   private onEvent(event: EventPayload) {
     this.logger.info('onEvent');
-    
   }
 }

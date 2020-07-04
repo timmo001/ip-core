@@ -9,7 +9,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "start": "yarn run compile && node dist",
-    "start:dev": "nodemon --watch src",
+    "start:dev": "nodemon",
     "start:prod": "node dist",
     "test": "jest",
     "test:cov": "jest --coverage",
@@ -39,6 +39,18 @@
     "ts-node": "8.10.2",
     "tsconfig-paths": "3.9.0",
     "typescript": "3.9.5"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "ext": "ts"
   },
   "jest": {
     "moduleFileExtensions": [

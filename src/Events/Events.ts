@@ -1,32 +1,23 @@
 import { Logger } from 'winston';
 
 import Base from '../Base';
+import Config from '../Types/Config';
+import EventPayload from 'src/Types/EventPayload';
 import Server from '../WebSocket/Server';
 import Services from '../Services/Services';
-
-export interface ServiceEventData {
-  [key: string]: any;
-}
-
-// { "type": "service", "serviceKey": "1234", "data": {} }
-export interface EventPayload {
-  type: 'service' | 'custom';
-  serviceKey?: string;
-  data?: ServiceEventData;
-}
 
 export default class Events extends Base {
   public server: Server;
   public services: Services;
 
-  constructor(logger: Logger) {
-    super(logger);
-    this.server = new Server(logger, this.onEvent);
-    this.services = new Services(logger);
+  constructor(logger: Logger, config: Config) {
+    super(logger, config);
+    this.server = new Server(logger, config, this.onEvent);
+    this.services = new Services(logger, config);
   }
 
   init() {
-    this.logger.info('Hello Events');
+    this.logger.info('Initialise: Events');
   }
 
   private onEvent = (event: EventPayload) => {

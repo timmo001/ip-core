@@ -1,0 +1,3 @@
+---
+services_directory: '../upaas_services'
+socket_port: 1337

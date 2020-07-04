@@ -4,15 +4,19 @@ import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
 
-import { EventPayload } from '../Events/Events';
 import Base from '../Base';
-import config from '../config';
+import EventPayload from '../Types/EventPayload';
+import Config from '../Types/Config';
 
 export default class Server extends Base {
   public onEvent: (event: EventPayload) => void;
 
-  constructor(logger: Logger, onEvent: (event: EventPayload) => void) {
-    super(logger);
+  constructor(
+    logger: Logger,
+    config: Config,
+    onEvent: (event: EventPayload) => void
+  ) {
+    super(logger, config);
     this.onEvent = onEvent;
   }
 
@@ -36,12 +40,12 @@ export default class Server extends Base {
 
     wss.on('connection', (ws: WebSocket) => {
       ws.on('message', (message: string) => {
-        this.logger.info('Server Message: ');
-        this.logger.info(message);
+        this.logger.debug(`Server Message: ${message}`);
         this.onEvent(JSON.parse(message));
       });
     });
 
-    server.listen(config.port);
+    server.listen(this.config.socket_port);
+    this.logger.info(`Socket starting on port ${this.config.socket_port}`);
   }
 }

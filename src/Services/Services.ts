@@ -1,18 +1,20 @@
 import { Logger } from 'winston';
 import * as fs from 'fs';
 import * as YAML from 'yaml';
-import { Core } from 'upaas-core-plugins';
 
+import Action from '../Types/Action';
 import Base from '../Base';
 import Config from '../Types/Config';
+import Runner from '../Runner/Runner';
 import Service from '../Types/Service';
-import Action from 'src/Types/Action';
 
 export default class Services extends Base {
   data: any;
+  runner: Runner;
 
   constructor(logger: Logger, config: Config) {
     super(logger, config);
+    this.runner = new Runner(logger, config);
   }
 
   init() {
@@ -34,25 +36,17 @@ export default class Services extends Base {
       this.logger.debug(`Description: ${service.description}`);
       for (let i = 0; i < service.actions.length; i++) {
         const action: Action = service.actions[i];
-        this.logger.debug(`${service.name} - Action: ${action.description}`);
-        switch (action.service.plugin.toLowerCase()) {
-          default:
-            break;
-          case 'core':
-            const core = new Core(action.service.service);
-            this.logger.debug(
-              `${service.name} - Action: ${action.description} - this.data pre: ${this.data}`
-            );
-            this.data = await new core.service(
-              action.requires === 'previous'
-                ? { ...action.parameters, data: this.data }
-                : action.parameters
-            ).run(this.runCallback);
-            this.logger.debug(
-              `${service.name} - Action: ${action.description} - this.data post: ${this.data}`
-            );
-            break;
-        }
+        this.logger.debug(
+          `${service.name} - Action: ${action.description} - this.data pre: ${this.data}`
+        );
+        this.data = await this.runner.runAction(
+          service,
+          action,
+          action.requires === 'previous' ? this.data : undefined
+        );
+        this.logger.debug(
+          `${service.name} - Action: ${action.description} - this.data post: ${this.data}`
+        );
       }
     } catch (err) {
       this.logger.warn(err);

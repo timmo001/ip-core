@@ -3,6 +3,7 @@ import ServiceDefinition from './ServiceDefinition';
 
 export default interface Action {
   description?: string;
+  requires?: string;
   service: ServiceDefinition;
-  data: GenericObject;
+  parameters: GenericObject;
 }

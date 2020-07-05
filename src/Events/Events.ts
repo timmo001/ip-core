@@ -27,7 +27,7 @@ export default class Events extends Base {
         this.logger.warn('No serviceKey provided. Will not continue');
         return;
       }
-      this.services.runService(event.serviceKey, event.data);
+      this.services.runService(event.serviceKey);
     }
   };
 }

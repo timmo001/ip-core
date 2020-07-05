@@ -6504,13 +6504,13 @@ typescript@3.9.5:
   languageName: node
   linkType: hard
 
-"upaas-core-plugins@npm:0.0.7":
-  version: 0.0.7
-  resolution: "upaas-core-plugins@npm:0.0.7"
+"upaas-core-plugins@npm:0.0.8":
+  version: 0.0.8
+  resolution: "upaas-core-plugins@npm:0.0.8"
   dependencies:
     axios: 0.19.2
     ws: 7.3.0
-  checksum: 81945dfe9f4764c568e3c8d6caeee0973002146b28aff8161a393ed6d242fb055e8fa37ea1bbd0229b9484e0126ab31970bd9f5f594e25cd9a91fd9cdb0c8cf5
+  checksum: 418e76087408c6da1110444ba38218edb2126db25cd8c4a0392696dba819b6649b30ae70a11558cc44fdd211df4b104001230468540175618d3d9f4ca90faf00
   languageName: node
   linkType: hard
 
@@ -6536,7 +6536,7 @@ typescript@3.9.5:
     ts-node: 8.10.2
     tsconfig-paths: 3.9.0
     typescript: 3.9.5
-    upaas-core-plugins: 0.0.7
+    upaas-core-plugins: 0.0.8
     winston: 3.3.3
     ws: 7.3.0
     yaml: 1.10.0

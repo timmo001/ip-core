@@ -2244,9 +2244,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:7.3.1":
-  version: 7.3.1
-  resolution: "eslint@npm:7.3.1"
+"eslint@npm:7.4.0":
+  version: 7.4.0
+  resolution: "eslint@npm:7.4.0"
   dependencies:
     "@babel/code-frame": ^7.0.0
     ajv: ^6.10.0
@@ -2286,7 +2286,7 @@ __metadata:
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: 5d9fd38514ffb43d0c326488bae2338861a654d507e40594f0d6b39efee5d91ec3105d5408f2add6891e8b47d512a75f06b4ce974c2d70bc6d9ae62574b31deb
+  checksum: ef144e684ce031b045aca156439af5c5ec8a9b843613ed2948bb28ed767dc5e106d9f057a9bf93c752071b7833656bc7affa1d28daa9609c6ea59d1311f0a8de
   languageName: node
   linkType: hard
 
@@ -4907,6 +4907,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"papaparse@npm:5.2.0":
+  version: 5.2.0
+  resolution: "papaparse@npm:5.2.0"
+  checksum: c0b50b987b9a33a2bc9faab10b9b65e01a5bd37af25a8ba47a08db86013950570c2b452c8ca447cb3a48ab84b5cb86cefb1bd8dd8268164c93e7100c58e2a94d
+  languageName: node
+  linkType: hard
+
 "parent-module@npm:^1.0.0":
   version: 1.0.1
   resolution: "parent-module@npm:1.0.1"
@@ -5563,6 +5570,13 @@ __metadata:
   bin:
     sane: ./src/cli.js
   checksum: e384e252021b1afef7459e994fe3ea79d114a0e7d23a03e660444abf15a2b4c50ce7eac2810b2c289e857c618d96fb35ee66356ebd4d6cb97cb11b54b2b29600
+  languageName: node
+  linkType: hard
+
+"sax@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "sax@npm:1.2.4"
+  checksum: 9d7668d69105e89e2c1a4b2fdc12c72e1a2f78b825f7b4a8a2ea5cdfebf70920bd17715bed55264c3b3959616a0695f8ad2d098bf6944fbd0953ee9c695dceef
   languageName: node
   linkType: hard
 
@@ -6504,13 +6518,15 @@ typescript@3.9.5:
   languageName: node
   linkType: hard
 
-"upaas-core-plugins@npm:0.0.8":
-  version: 0.0.8
-  resolution: "upaas-core-plugins@npm:0.0.8"
+"upaas-core-plugins@npm:0.0.10":
+  version: 0.0.10
+  resolution: "upaas-core-plugins@npm:0.0.10"
   dependencies:
     axios: 0.19.2
+    papaparse: 5.2.0
     ws: 7.3.0
-  checksum: 418e76087408c6da1110444ba38218edb2126db25cd8c4a0392696dba819b6649b30ae70a11558cc44fdd211df4b104001230468540175618d3d9f4ca90faf00
+    xml-js: 1.6.11
+  checksum: 0e0daf5f85b5839c944628580d1b8d9aa6196610386909fb13375baf7ec3ddeb08b2b539a97170a15e51f4d353b2d3e083e56d2ca39e98fd6f6ef25aa8507c0f
   languageName: node
   linkType: hard
 
@@ -6522,7 +6538,7 @@ typescript@3.9.5:
     "@types/node": 14.0.14
     "@types/winston": 2.4.4
     "@types/ws": 7.2.6
-    eslint: 7.3.1
+    eslint: 7.4.0
     eslint-config-prettier: 6.11.0
     eslint-plugin-import: 2.22.0
     eslint-plugin-prettier: 3.1.4
@@ -6536,7 +6552,7 @@ typescript@3.9.5:
     ts-node: 8.10.2
     tsconfig-paths: 3.9.0
     typescript: 3.9.5
-    upaas-core-plugins: 0.0.8
+    upaas-core-plugins: 0.0.10
     winston: 3.3.3
     ws: 7.3.0
     yaml: 1.10.0
@@ -6867,6 +6883,17 @@ typescript@3.9.5:
   version: 4.0.0
   resolution: "xdg-basedir@npm:4.0.0"
   checksum: 928953cb7dda8e2475932f748847a3aae751f44864a0067b03e5ca66820a36e1e9ffb647f9b06fb68ebcb0b9d06d5aee630717a1d2501be14cec99f82efa2fe6
+  languageName: node
+  linkType: hard
+
+"xml-js@npm:1.6.11":
+  version: 1.6.11
+  resolution: "xml-js@npm:1.6.11"
+  dependencies:
+    sax: ^1.2.4
+  bin:
+    xml-js: ./bin/cli.js
+  checksum: 375073635884af60c5f02d1b586dfd4f4ba08285d5a4241f562f0692fa514c2764d31f6a92e07e9d499fc5855ea62f95931e691811aabf739958c18fe06256a6
   languageName: node
   linkType: hard
 

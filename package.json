@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "logform": "2.2.0",
-    "upaas-core-plugins": "0.0.8",
+    "upaas-core-plugins": "0.0.10",
     "winston": "3.3.3",
     "ws": "7.3.0",
     "yaml": "1.10.0"

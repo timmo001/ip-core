@@ -740,10 +740,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:14.0.14":
+"@types/node@npm:*":
   version: 14.0.14
   resolution: "@types/node@npm:14.0.14"
   checksum: 0a2072aa7de32e6535ce6bc7383965fc0a4b7bbf6d76f69027db72e86381921c820a8a2173f75fa210d9fb3286c707079d3804ef33c76a065bcb890858e50ee9
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:14.0.20":
+  version: 14.0.20
+  resolution: "@types/node@npm:14.0.20"
+  checksum: a5a13825cdd5d10a0f841216325023bb6924a56c468d86943fae9f3d6c350b9e41746960006cf71cb427df662cdeff205ea1b25827738859e5de747147c00bef
   languageName: node
   linkType: hard
 
@@ -6458,23 +6465,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-typescript@3.9.5:
-  version: 3.9.5
-  resolution: "typescript@npm:3.9.5"
+typescript@3.9.6:
+  version: 3.9.6
+  resolution: "typescript@npm:3.9.6"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 15618435493667083eb43dc7b36c4d3dd47fd9e9c8a14f0ac4019bbf6124b6cc518b6ed506400913db1bf50831207ee8201b5d827680076930b562923f4f18a0
+  checksum: 75d8e3610ca435b0feaa3eb714ef3aa9060ec72621da3c62c45ceee1d8d0ddcbd8ff2a816de2d24ab28dcd2249953edb640d34595d59e491656156da4c2903fc
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@3.9.5#builtin<compat/typescript>":
-  version: 3.9.5
-  resolution: "typescript@patch:typescript@npm%3A3.9.5#builtin<compat/typescript>::version=3.9.5&hash=64df9d"
+"typescript@patch:typescript@3.9.6#builtin<compat/typescript>":
+  version: 3.9.6
+  resolution: "typescript@patch:typescript@npm%3A3.9.6#builtin<compat/typescript>::version=3.9.6&hash=64df9d"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 5849aa7c2d887b4d0b289530b45690fc26e606ea3719cf958dbb7f531ca1b968895bbef89b21ecb3903d5039fb047ebf6a0047ba147123060cbe1940ce5c91be
+  checksum: 74cb55c847841e1aeea9c78bdf0156cf6ba311eb353e555ba70cb6df120e9b4c4a7feff2a153f04fda3d6b7124496fd4d444be62f3d2d448e77c667ea5beaa0b
   languageName: node
   linkType: hard
 
@@ -6518,15 +6525,16 @@ typescript@3.9.5:
   languageName: node
   linkType: hard
 
-"upaas-core-plugins@npm:0.0.10":
-  version: 0.0.10
-  resolution: "upaas-core-plugins@npm:0.0.10"
+"upaas-core-plugins@npm:0.1.1":
+  version: 0.1.1
+  resolution: "upaas-core-plugins@npm:0.1.1"
   dependencies:
     axios: 0.19.2
     papaparse: 5.2.0
-    ws: 7.3.0
+    ws: 7.3.1
     xml-js: 1.6.11
-  checksum: 0e0daf5f85b5839c944628580d1b8d9aa6196610386909fb13375baf7ec3ddeb08b2b539a97170a15e51f4d353b2d3e083e56d2ca39e98fd6f6ef25aa8507c0f
+    yaml: 1.10.0
+  checksum: 8905bcaf2522d1d32730ad66e260c9cc61cffbccab277527df197f3553911b5c54feae63986b680c2e207510e3ab361f548d172e998bcf262f6ed933350cb4f6
   languageName: node
   linkType: hard
 
@@ -6535,7 +6543,7 @@ typescript@3.9.5:
   resolution: "upaas@workspace:."
   dependencies:
     "@types/logform": 1.10.1
-    "@types/node": 14.0.14
+    "@types/node": 14.0.20
     "@types/winston": 2.4.4
     "@types/ws": 7.2.6
     eslint: 7.4.0
@@ -6551,10 +6559,10 @@ typescript@3.9.5:
     ts-loader: 7.0.5
     ts-node: 8.10.2
     tsconfig-paths: 3.9.0
-    typescript: 3.9.5
-    upaas-core-plugins: 0.0.10
+    typescript: 3.9.6
+    upaas-core-plugins: 0.1.1
     winston: 3.3.3
-    ws: 7.3.0
+    ws: 7.3.1
     yaml: 1.10.0
   languageName: unknown
   linkType: soft
@@ -6864,7 +6872,22 @@ typescript@3.9.5:
   languageName: node
   linkType: hard
 
-"ws@npm:7.3.0, ws@npm:^7.2.3":
+"ws@npm:7.3.1":
+  version: 7.3.1
+  resolution: "ws@npm:7.3.1"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 9302f1f6658c5f3ecd6d35d1c5a38ad708d8e5404cba66ad884ead072ef7a4c948f54d728649a2cb3af1865ca0e15f903e0e2ac9df30c1a0d4dd00d00e6e0d4a
+  languageName: node
+  linkType: hard
+
+"ws@npm:^7.2.3":
   version: 7.3.0
   resolution: "ws@npm:7.3.0"
   peerDependencies:

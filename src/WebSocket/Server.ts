@@ -42,8 +42,20 @@ export default class Server extends Base {
       this.logger.debug(`New connection: ${req.connection.remoteAddress}`);
       ws.on('message', (message: string) => {
         this.logger.debug(`Server Message: ${message}`);
-        this.onEvent(JSON.parse(message));
-        ws.send(JSON.stringify({ message }));
+        let data: EventPayload | null = null;
+        try {
+          data = JSON.parse(message);
+        } catch (e) {
+          this.logger.warn(e);
+        }
+        if (!data || !data.token)
+          ws.send(JSON.stringify({ error: 'Invalid payload' }));
+        else if (data.token !== this.config.token)
+          ws.send(JSON.stringify({ error: 'Incorrect token' }));
+        else {
+          this.onEvent(data);
+          ws.send(message);
+        }
       });
     });
 

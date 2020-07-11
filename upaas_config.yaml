@@ -2,3 +2,7 @@
 log_level: 'debug'
 services_directory: '../upaas_services'
 socket_port: 1337
+backend:
+  api_port: 5684
+  secret: 'YOUR_SECRET_HERE'
+  token_expiry: '1800s'

@@ -8,4 +8,4 @@ core:
   log_level: 'debug'
   socket_port: 1337
 services_directory: '../upaas_services'
-token: 'jgoujojg894nu-g-40mi20rimewf4wiasd32d'
+token: 'YOUR_TOKEN_HERE'

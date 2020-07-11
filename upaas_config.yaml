@@ -1,8 +1,11 @@
 ---
-log_level: 'debug'
-services_directory: '../upaas_services'
-socket_port: 1337
 backend:
   api_port: 5684
   secret: 'YOUR_SECRET_HERE'
   token_expiry: '1800s'
+core:
+  host: 'localhost'
+  log_level: 'debug'
+  socket_port: 1337
+services_directory: '../upaas_services'
+token: 'jgoujojg894nu-g-40mi20rimewf4wiasd32d'

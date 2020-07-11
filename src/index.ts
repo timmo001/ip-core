@@ -10,7 +10,7 @@ const config: Config = YAML.parse(
 );
 
 const logger = createLogger({
-  level: config.log_level,
+  level: config.core.log_level,
   format: format.combine(
     format.colorize(),
     format.json(),

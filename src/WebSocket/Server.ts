@@ -38,14 +38,16 @@ export default class Server extends Base {
 
     const wss = new WebSocket.Server({ server });
 
-    wss.on('connection', (ws: WebSocket) => {
+    wss.on('connection', (ws: WebSocket, req: http.IncomingMessage) => {
+      this.logger.debug(`New connection: ${req.connection.remoteAddress}`);
       ws.on('message', (message: string) => {
         this.logger.debug(`Server Message: ${message}`);
         this.onEvent(JSON.parse(message));
+        ws.send(JSON.stringify({ message }));
       });
     });
 
-    server.listen(this.config.socket_port);
-    this.logger.info(`Socket starting on port ${this.config.socket_port}`);
+    server.listen(this.config.core.socket_port);
+    this.logger.info(`Socket starting on port ${this.config.core.socket_port}`);
   }
 }

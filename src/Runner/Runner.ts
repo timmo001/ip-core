@@ -25,7 +25,7 @@ export default class Runner extends Base {
     data?: any
   ): Promise<any> => {
     await connection.query(
-      `UPDATE events SET status = "running - ${
+      `UPDATE events SET status = "Running - ${
         action.description
       }", updated = '${moment().format(
         'YYYY-MM-DD HH:mm:ss'

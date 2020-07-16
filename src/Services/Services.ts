@@ -33,7 +33,7 @@ export default class Services extends Base {
     const startedDate = moment().format('YYYY-MM-DD HH:mm:ss');
     const connection: Connection = await this.database.pool.getConnection();
     await connection.query(
-      `INSERT INTO events (id,service,status,started,updated) VALUES ('${id}','${serviceKey}','started','${startedDate}','${startedDate}')`
+      `INSERT INTO events (id,service,status,started,updated) VALUES ('${id}','${serviceKey}','Started','${startedDate}','${startedDate}')`
     );
 
     try {
@@ -66,7 +66,7 @@ export default class Services extends Base {
       }
       const completeDate = moment().format('YYYY-MM-DD HH:mm:ss');
       await connection.query(
-        `UPDATE events SET status = 'completed', updated = '${completeDate}', completed = '${completeDate}' WHERE id = '${id}'`
+        `UPDATE events SET status = 'Completed', updated = '${completeDate}', completed = '${completeDate}' WHERE id = '${id}'`
       );
     } catch (err) {
       this.logger.warn(err);

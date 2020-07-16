@@ -7,5 +7,11 @@ core:
   host: 'localhost'
   log_level: 'debug'
   socket_port: 1337
+database:
+  database: upaas
+  host: localhost
+  password: password1234
+  port: 3306
+  username: upaasuser
 services_directory: '../upaas_services'
 token: 'YOUR_TOKEN_HERE'

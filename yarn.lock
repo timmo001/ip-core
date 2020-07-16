@@ -680,6 +680,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/geojson@npm:^7946.0.7":
+  version: 7946.0.7
+  resolution: "@types/geojson@npm:7946.0.7"
+  checksum: b0a614f58a169069d9978af24c4b816bc7140a722829d8786ad1ff22d8362b429c56170326c836ce661a0307f8e35820a055966c2eedc21b62671a56c472263e
+  languageName: node
+  linkType: hard
+
 "@types/graceful-fs@npm:^4.1.2":
   version: 4.1.3
   resolution: "@types/graceful-fs@npm:4.1.3"
@@ -754,6 +761,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^13.9.8":
+  version: 13.13.14
+  resolution: "@types/node@npm:13.13.14"
+  checksum: b2fa5163740c067303f41b06aa35bc67e67ea5284de2aceac4c3b4eb8e34c1c9f102ecba82d268f05a4d06fbcc82079160ca577a763cfe31ee38a0a123bd42dd
+  languageName: node
+  linkType: hard
+
 "@types/normalize-package-data@npm:^2.4.0":
   version: 2.4.0
   resolution: "@types/normalize-package-data@npm:2.4.0"
@@ -781,6 +795,13 @@ __metadata:
   version: 1.0.1
   resolution: "@types/stack-utils@npm:1.0.1"
   checksum: 59738e4b71b233b438a6ecb9faaf577d6f02afec4ea093d5ad3c10e78cb7096ab32648a2c2017c6c2e6c6853498aa783643a2c6b859c4a75f6750e7b37ae8bae
+  languageName: node
+  linkType: hard
+
+"@types/uuid@npm:8.0.0":
+  version: 8.0.0
+  resolution: "@types/uuid@npm:8.0.0"
+  checksum: a1d953039620278f03198b2ad7574ba884d73338756fe1ce2628f44518140f1e1fc3ee676251713e212b9a5d2cbd5bd081e67afa439c8988619540076b627a86
   languageName: node
   linkType: hard
 
@@ -1921,6 +1942,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"denque@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "denque@npm:1.4.1"
+  checksum: 174e81b3c9407b2149216d9e793fb91d901c19b1225dceefdafe32d5abeca243382ffee9bb111a1f60e42d2791b457d029bb57379d48404b2fb351bf700b6a8c
+  languageName: node
+  linkType: hard
+
 "detect-newline@npm:^3.0.0":
   version: 3.1.0
   resolution: "detect-newline@npm:3.1.0"
@@ -3010,6 +3038,15 @@ __metadata:
   dependencies:
     safer-buffer: ">= 2.1.2 < 3"
   checksum: a9b9521066ee81853a8561e92bd7240bc5d3b7d5ef7da807a475e7858b0246e318b6af518c30a20a8749ef5eafeaa9631079446e4e696c7b60f468b34dc2cbfc
+  languageName: node
+  linkType: hard
+
+"iconv-lite@npm:^0.5.1":
+  version: 0.5.2
+  resolution: "iconv-lite@npm:0.5.2"
+  dependencies:
+    safer-buffer: ">= 2.1.2 < 3"
+  checksum: b54433bf0128a26c5720d35785a7bc7ca0f72e8984e2fefcead1baeaee20266a8a6c397dd0598e74a9615b79142afb46bc937a218c887b10ca967278b508d933
   languageName: node
   linkType: hard
 
@@ -4256,6 +4293,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"long@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "long@npm:4.0.0"
+  checksum: 9cebc1ee8b9ea15278c977f61250ac41becdf7216104905f0d198c147ed2a7a090a2d83bb212878d3dc3ccb0199e6428862f848ec4b0ecfeab4dfe24eccf21b3
+  languageName: node
+  linkType: hard
+
 "lowercase-keys@npm:^1.0.0, lowercase-keys@npm:^1.0.1":
   version: 1.0.1
   resolution: "lowercase-keys@npm:1.0.1"
@@ -4308,6 +4352,21 @@ __metadata:
   dependencies:
     object-visit: ^1.0.0
   checksum: 9e85e6d802183927229d9ad04d70a0e0c7225451994605674d3ed4e4a21f817b4d9aba42a775e98078ffe47cf67df44a50eb07f965f14afead5015c8692503bd
+  languageName: node
+  linkType: hard
+
+"mariadb@npm:2.4.1":
+  version: 2.4.1
+  resolution: "mariadb@npm:2.4.1"
+  dependencies:
+    "@types/geojson": ^7946.0.7
+    "@types/node": ^13.9.8
+    denque: ^1.4.1
+    iconv-lite: ^0.5.1
+    long: ^4.0.0
+    moment-timezone: ^0.5.31
+    please-upgrade-node: ^3.2.0
+  checksum: 1a2fac768ca48d3660386c703b02ea2ee2123dd1075a4f2428c7b0e00efbb20e4a26fd3a95c586a0ad487890470a82b3c1bfa2ee2f7944cf2fb00a61169eef90
   languageName: node
   linkType: hard
 
@@ -4451,6 +4510,22 @@ __metadata:
   bin:
     mkdirp: bin/cmd.js
   checksum: 9dd9792e891927b14ca02226dbe1daeb717b9517a001620d5e2658bbc72c5e4f06887b6cbcbb60595fa5a56e701073cf250f1ed69c1988a6b89faf9fd6a4d049
+  languageName: node
+  linkType: hard
+
+"moment-timezone@npm:^0.5.31":
+  version: 0.5.31
+  resolution: "moment-timezone@npm:0.5.31"
+  dependencies:
+    moment: ">= 2.9.0"
+  checksum: db8c241301530919ea3091b75c067c1b919973619bed0f3b0c009eb94e44da726452a1382c099d55a876407fd4e22802b45bc51f96c5cbfbb7fbbfa6660079e8
+  languageName: node
+  linkType: hard
+
+"moment@npm:2.27.0, moment@npm:>= 2.9.0":
+  version: 2.27.0
+  resolution: "moment@npm:2.27.0"
+  checksum: 72d9a7d8dba59e3d538440cdc0b59fa895b123361e370be231896478aaf157a484355ce32bd8daf6f731d6d1636d3a67ecb67531e536e093ca18b43e0cbae194
   languageName: node
   linkType: hard
 
@@ -5064,6 +5139,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"please-upgrade-node@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "please-upgrade-node@npm:3.2.0"
+  dependencies:
+    semver-compare: ^1.0.0
+  checksum: 34cf86f6d577877df5e9ced0bda57babd97bd2dc7e5965a67f990337f01ccd5203a98dc5aa7971e10088b2b1b29628d51d9770996151c7d306ed0069b4ecd745
+  languageName: node
+  linkType: hard
+
 "posix-character-classes@npm:^0.1.0":
   version: 0.1.1
   resolution: "posix-character-classes@npm:0.1.1"
@@ -5593,6 +5677,13 @@ __metadata:
   dependencies:
     xmlchars: ^2.2.0
   checksum: 6ad14be68da9b84af0fa3de346fd78bd3a8e8a73a462e2852279a1fff1e2619988919294001abe3ecef3783f9498962a0619d960ccca4ec2ca914526fde1acc2
+  languageName: node
+  linkType: hard
+
+"semver-compare@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "semver-compare@npm:1.0.0"
+  checksum: 9f3a74ca5f829c6b643668281228e2af310d9cb918a9d722e0c9426c4244c32346d29e955bbe796c46341f644fc741d888ca02e573f7aa230542809b03b0d8ec
   languageName: node
   linkType: hard
 
@@ -6544,6 +6635,7 @@ typescript@3.9.6:
   dependencies:
     "@types/logform": 1.10.1
     "@types/node": 14.0.20
+    "@types/uuid": 8.0.0
     "@types/winston": 2.4.4
     "@types/ws": 7.2.6
     eslint: 7.4.0
@@ -6552,6 +6644,8 @@ typescript@3.9.6:
     eslint-plugin-prettier: 3.1.4
     jest: 26.1.0
     logform: 2.2.0
+    mariadb: 2.4.1
+    moment: 2.27.0
     nodemon: 2.0.4
     prettier: 2.0.5
     shx: 0.3.2
@@ -6561,6 +6655,7 @@ typescript@3.9.6:
     tsconfig-paths: 3.9.0
     typescript: 3.9.6
     upaas-core-plugins: 0.1.1
+    uuid: 8.2.0
     winston: 3.3.3
     ws: 7.3.1
     yaml: 1.10.0
@@ -6624,6 +6719,15 @@ typescript@3.9.6:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 73c2b1cf0210ccac300645384d8443cabbd93194117b2dc1b3bae8d8279ad39aedac857e020c4ea505e96a1045059c7359db3df6a9df0be6b8584166c9d61dc9
+  languageName: node
+  linkType: hard
+
+"uuid@npm:8.2.0":
+  version: 8.2.0
+  resolution: "uuid@npm:8.2.0"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 6059ba10c32a42897af628b9e434ff523713614714d93845c76ee153f0d9c7e88ab47b8d03cadbe5f4c39a57abc4fbff46ae533fff6318cc6c907e4cd626fcb2
   languageName: node
   linkType: hard
 

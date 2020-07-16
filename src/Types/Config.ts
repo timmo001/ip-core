@@ -10,9 +10,18 @@ export interface ConfigCore {
   socket_port: number;
 }
 
+export interface ConfigDatabase {
+  database: string;
+  host: string;
+  password: string;
+  port: number;
+  username: string;
+}
+
 export default interface Config {
   backend: ConfigBackend;
   core: ConfigCore;
+  database: ConfigDatabase;
   services_directory: string;
   token: string;
 }

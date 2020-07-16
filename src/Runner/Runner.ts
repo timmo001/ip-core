@@ -1,5 +1,7 @@
+import { Connection } from 'mariadb';
 import { Core } from 'upaas-core-plugins';
 import { Logger } from 'winston';
+import moment from 'moment';
 
 import Action from '../Types/Action';
 import Base from '../Base';
@@ -16,10 +18,20 @@ export default class Runner extends Base {
   }
 
   runAction = async (
+    id: string,
+    connection: Connection,
     service: Service,
     action: Action,
     data?: any
   ): Promise<any> => {
+    await connection.query(
+      `UPDATE events SET status = "running - ${
+        action.description
+      }", updated = '${moment().format(
+        'YYYY-MM-DD HH:mm:ss'
+      )}' WHERE id = '${id}'`
+    );
+
     this.logger.info(`${service.name} - Action: ${action.description}`);
     switch (action.service.plugin.toLowerCase()) {
       default:

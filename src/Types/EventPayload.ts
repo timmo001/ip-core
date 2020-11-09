@@ -1,6 +1,14 @@
-// { "type": "service", "serviceKey": "d79c3b9c-c8dd-49b5-8388-a6c08adc9e20" }
+import Data from './Data';
+
 export default interface EventPayload {
+  completed?: string;
+  data?: Data;
+  id?: string;
+  resultOnly?: boolean;
+  service: string;
   serviceKey?: string;
-  token: string;
-  type: 'service';
+  started?: string;
+  status?: string;
+  token?: string;
+  updated?: string;
 }

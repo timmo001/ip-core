@@ -53,8 +53,9 @@ export default class Server extends Base {
         else if (data.token !== this.config.token)
           ws.send(JSON.stringify({ error: 'Incorrect token' }));
         else {
+          delete data.token;
           this.onEvent(data);
-          ws.send(message);
+          ws.send(JSON.stringify(data));
         }
       });
     });

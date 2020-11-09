@@ -22,12 +22,10 @@ export default class Events extends Base {
 
   private onEvent = (event: EventPayload) => {
     this.logger.debug('Event');
-    if (event.type === 'service') {
-      if (!event.serviceKey) {
-        this.logger.warn('No serviceKey provided. Will not continue');
-        return;
-      }
-      this.services.runService(event.serviceKey);
+    if (!event.serviceKey) {
+      this.logger.warn('No serviceKey provided. Will not continue');
+      return;
     }
+    this.services.runService(event.serviceKey);
   };
 }

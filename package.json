@@ -24,7 +24,7 @@
     "upaas-core-plugins": "0.1.1",
     "uuid": "8.3.1",
     "winston": "3.3.3",
-    "ws": "7.3.1",
+    "ws": "7.4.0",
     "yaml": "1.10.0"
   },
   "devDependencies": {

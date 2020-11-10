@@ -536,13 +536,9 @@
   dependencies:
     logform "*"
 
-"@types/node@*", "@types/node@14.14.7":
+"@types/node@*", "@types/node@14.14.7", "@types/node@^14.11.2":
   version "14.14.7"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.7.tgz#8ea1e8f8eae2430cf440564b98c6dfce1ec5945d"
-
-"@types/node@^13.9.8":
-  version "13.13.30"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.30.tgz#1ed6e01e4ca576d5aec9cc802cc3bcf94c274192"
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -1995,11 +1991,11 @@ iconv-lite@0.4.24:
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
 
-iconv-lite@^0.5.1:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.5.2.tgz#af6d628dccfb463b7364d97f715e4b74b8c8c2b8"
+iconv-lite@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.6.2.tgz#ce13d1875b0c3a674bd6a04b7f76b01b1b6ded01"
   dependencies:
-    safer-buffer ">= 2.1.2 < 3"
+    safer-buffer ">= 2.1.2 < 3.0.0"
 
 ignore-by-default@^1.0.1:
   version "1.0.1"
@@ -2903,14 +2899,14 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mariadb@2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/mariadb/-/mariadb-2.4.2.tgz#8d1d5e3211515ff44becad52a975888880df5bdd"
+mariadb@2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/mariadb/-/mariadb-2.5.1.tgz#46fd8773b6320eef535b895dae6374781194b6f6"
   dependencies:
     "@types/geojson" "^7946.0.7"
-    "@types/node" "^13.9.8"
+    "@types/node" "^14.11.2"
     denque "^1.4.1"
-    iconv-lite "^0.5.1"
+    iconv-lite "^0.6.2"
     long "^4.0.0"
     moment-timezone "^0.5.31"
     please-upgrade-node "^3.2.0"
@@ -3670,7 +3666,7 @@ safe-regex@^1.1.0:
   dependencies:
     ret "~0.1.10"
 
-"safer-buffer@>= 2.1.2 < 3", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
+"safer-buffer@>= 2.1.2 < 3", "safer-buffer@>= 2.1.2 < 3.0.0", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
@@ -4473,10 +4469,6 @@ write@1.0.3:
   resolved "https://registry.yarnpkg.com/write/-/write-1.0.3.tgz#0800e14523b923a387e415123c865616aae0f5c3"
   dependencies:
     mkdirp "^0.5.1"
-
-ws@7.3.1:
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.3.1.tgz#d0547bf67f7ce4f12a72dfe31262c68d7dc551c8"
 
 ws@7.4.0, ws@^7.2.3:
   version "7.4.0"

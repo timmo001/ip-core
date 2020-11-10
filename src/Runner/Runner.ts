@@ -6,6 +6,7 @@ import moment from 'moment';
 import Action from '../Types/Action';
 import Base from '../Base';
 import Config from '../Types/Config';
+import Generic from '../Types/Generic';
 import Service from '../Types/Service';
 
 export default class Runner extends Base {
@@ -23,7 +24,7 @@ export default class Runner extends Base {
     service: Service,
     action: Action,
     data?: any
-  ): Promise<any> => {
+  ): Promise<Generic> => {
     await connection.query(
       `UPDATE events SET status = "Running - ${
         action.description
@@ -35,7 +36,7 @@ export default class Runner extends Base {
     this.logger.info(`${service.name} - Action: ${action.description}`);
     switch (action.service.plugin.toLowerCase()) {
       default:
-        return;
+        return null;
       case 'core':
         const core = new Core(action.service.service);
         return await new core.service(

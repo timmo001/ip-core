@@ -40,24 +40,30 @@ export default class Server extends Base {
 
     wss.on('connection', (ws: WebSocket, req: http.IncomingMessage) => {
       this.logger.debug(`New connection: ${req.connection.remoteAddress}`);
-      ws.on('message', (message: string) => {
-        this.logger.debug(`Server Message: ${message}`);
-        let data: EventPayload | null = null;
-        try {
-          data = JSON.parse(message);
-        } catch (e) {
-          this.logger.warn(e);
+      ws.on(
+        'message',
+        async (message: string): Promise<void> => {
+          this.logger.debug(`Server Message: ${message}`);
+          let data: EventPayload | null = null;
+          try {
+            data = JSON.parse(message);
+          } catch (e) {
+            this.logger.warn(e);
+          }
+          if (!data || !data.token)
+            ws.send(JSON.stringify({ error: 'Invalid payload' }));
+          else if (data.token !== this.config.token)
+            ws.send(JSON.stringify({ error: 'Incorrect token' }));
+          else {
+            delete data.token;
+            const result = await this.onEvent(data);
+            this.logger.debug(`onEvent result: ${result}`);
+            ws.send(
+              JSON.stringify(data.resultOnly ? result : { ...data, result })
+            );
+          }
         }
-        if (!data || !data.token)
-          ws.send(JSON.stringify({ error: 'Invalid payload' }));
-        else if (data.token !== this.config.token)
-          ws.send(JSON.stringify({ error: 'Incorrect token' }));
-        else {
-          delete data.token;
-          this.onEvent(data);
-          ws.send(JSON.stringify(data));
-        }
-      });
+      );
     });
 
     server.listen(this.config.core.socket_port);

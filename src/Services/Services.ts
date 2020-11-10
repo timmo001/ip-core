@@ -9,6 +9,7 @@ import Action from '../Types/Action';
 import Base from '../Base';
 import Config from '../Types/Config';
 import Database from '../Database/Database';
+import Generic from '../Types/Generic';
 import Runner from '../Runner/Runner';
 import Service from '../Types/Service';
 
@@ -27,7 +28,7 @@ export default class Services extends Base {
     this.logger.info('Initialise: Services');
   }
 
-  runService = async (serviceKey: string) => {
+  runService = async (serviceKey: string): Promise<Generic> => {
     const id = uuidv4();
 
     const startedDate = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -44,14 +45,14 @@ export default class Services extends Base {
       const service: Service = YAML.parse(data);
       if (!service) {
         this.logger.warn(`Could not parse yaml file. ${path}`);
-        return;
+        return null;
       }
       this.logger.info(`Run Service: ${service.name} (${serviceKey})`);
       this.logger.debug(`Description: ${service.description}`);
       for (let i = 0; i < service.actions.length; i++) {
         const action: Action = service.actions[i];
         this.logger.debug(
-          `${service.name} - Action: ${action.description} - this.data pre: ${this.data}`
+          `${service.name} - Action: ${action.description} - this.data pre: ${JSON.stringify(this.data)}`
         );
         this.data = await this.runner.runAction(
           id,
@@ -61,7 +62,7 @@ export default class Services extends Base {
           action.requires === 'previous' ? this.data : undefined
         );
         this.logger.debug(
-          `${service.name} - Action: ${action.description} - this.data post: ${this.data}`
+          `${service.name} - Action: ${action.description} - this.data post: ${JSON.stringify(this.data)}`
         );
       }
       const completeDate = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -78,6 +79,7 @@ export default class Services extends Base {
         )}' WHERE id = '${id}'`
       );
     }
+    return this.data;
   };
 
   runCallback = (error: Error | null, data: any) => {

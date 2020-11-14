@@ -27,6 +27,6 @@ export default class Events extends Base {
       this.logger.warn('No serviceKey provided. Will not continue');
       return null;
     }
-    return await this.services.runService(event.serviceKey);
+    return await this.services.runService(event);
   };
 }

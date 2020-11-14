@@ -58,9 +58,7 @@ export default class Server extends Base {
             delete data.token;
             const result = await this.onEvent(data);
             this.logger.debug(`onEvent result: ${JSON.stringify(result)}`);
-            ws.send(
-              JSON.stringify(data.resultOnly ? result : { ...data, result })
-            );
+            ws.send(JSON.stringify(data.resultOnly ? result : { result }));
           }
         }
       );

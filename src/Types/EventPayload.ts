@@ -2,7 +2,7 @@ import Data from './Data';
 
 export default interface EventPayload {
   completed?: string;
-  data?: Data;
+  data: Data;
   id?: string;
   resultOnly?: boolean;
   service: string;

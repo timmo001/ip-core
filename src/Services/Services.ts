@@ -72,7 +72,7 @@ export default class Services extends Base {
       const data = fs.readFileSync(path, { encoding: 'utf8' });
       const service: Service = YAML.parse(data);
       if (!service) {
-        this.logger.warn(`Could not parse yaml file. ${path}`);
+        this.logger.error(`Could not parse yaml file. ${path}`);
         return null;
       }
       this.logger.info(`Run Service: ${service.name} (${event.serviceKey})`);
@@ -97,19 +97,19 @@ export default class Services extends Base {
           variables,
           action.description
         );
-        this.logger.warn(`action.description: ${action.description}`);
+        this.logger.debug(`action.description: ${action.description}`);
         action.requires = await this.parseTemplate(variables, action.requires);
-        this.logger.warn(`action.requires: ${action.requires}`);
+        this.logger.debug(`action.requires: ${action.requires}`);
         action.service.plugin = await this.parseTemplate(
           variables,
           action.service.plugin
         );
-        this.logger.warn(`action.service.plugin: ${action.service.plugin}`);
+        this.logger.debug(`action.service.plugin: ${action.service.plugin}`);
         action.service.service = await this.parseTemplate(
           variables,
           action.service.service
         );
-        this.logger.warn(`action.service.service: ${action.service.service}`);
+        this.logger.debug(`action.service.service: ${action.service.service}`);
 
         if (action.parameters !== undefined && action.parameters !== null) {
           let parameters: GenericObject = {};
@@ -123,7 +123,7 @@ export default class Services extends Base {
           }
           action.parameters = parameters;
         }
-        this.logger.warn(
+        this.logger.debug(
           `action.parameters: ${JSON.stringify(action.parameters)}`
         );
 

@@ -32,13 +32,6 @@ export default class Runner extends Base {
     await this.eventRepo.update(id, {
       status: `Running - ${action.description}`,
     });
-    // await this.database.connection.query(
-    //   `UPDATE events SET status = "Running - ${
-    //     action.description
-    //   }", updatedOn = '${moment().format(
-    //     'YYYY-MM-DD HH:mm:ss'
-    //   )}' WHERE id = '${id}'`
-    // );
 
     this.logs.info(`${service.name} - Action: ${action.description}`, 'action');
     switch (action.service.plugin.toLowerCase()) {

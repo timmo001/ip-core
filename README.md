@@ -1,6 +1,6 @@
-# UPAAS
+# UPaaS
 
-[![Build Status](https://dev.azure.com/timmo0001/UPAAS/_apis/build/status/Edge?branchName=master)](https://dev.azure.com/timmo0001/UPAAS/_build?definitionId=5)
+[![Build Status](https://dev.azure.com/timmo0001/UPaaS/_apis/build/status/Edge?branchName=master)](https://dev.azure.com/timmo0001/UPaaS/_build?definitionId=5)
 
 [![GitHub Release][releases-shield]][releases]
 ![Project Stage][project-stage-shield]

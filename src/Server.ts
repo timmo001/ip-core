@@ -3,11 +3,11 @@ import * as http from 'http';
 import * as https from 'https';
 import * as WebSocket from 'ws';
 
-import Base from '../Base';
-import Config from '../Types/Config';
-import Database from '../Database';
-import EventPayload from '../Types/EventPayload';
-import Logs from '../Logs';
+import Base from './Base';
+import Config from './Types/Config';
+import Database from './Database';
+import EventPayload from './Types/EventPayload';
+import Logs from './Logs';
 
 export default class Server extends Base {
   public onEvent: (event: EventPayload) => void;

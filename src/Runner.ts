@@ -1,6 +1,8 @@
 import { Core } from 'upaas-core-plugins';
+import { Repository } from 'typeorm';
 import moment from 'moment';
 
+import { EventEntity } from './entities/event.entity';
 import Action from './Types/Action';
 import Base from './Base';
 import Config from './Types/Config';
@@ -10,8 +12,11 @@ import Logs from './Logs';
 import Service from './Types/Service';
 
 export default class Runner extends Base {
+  private eventRepo: Repository<EventEntity>;
+
   constructor(config: Config, database: Database, logs: Logs) {
     super(config, database, logs);
+    this.eventRepo = this.database.connection.getRepository(EventEntity);
   }
 
   async init() {
@@ -24,13 +29,16 @@ export default class Runner extends Base {
     action: Action,
     data?: any
   ): Promise<Generic> => {
-    await this.database.connection.query(
-      `UPDATE events SET status = "Running - ${
-        action.description
-      }", updatedOn = '${moment().format(
-        'YYYY-MM-DD HH:mm:ss'
-      )}' WHERE id = '${id}'`
-    );
+    await this.eventRepo.update(id, {
+      status: `Running - ${action.description}`,
+    });
+    // await this.database.connection.query(
+    //   `UPDATE events SET status = "Running - ${
+    //     action.description
+    //   }", updatedOn = '${moment().format(
+    //     'YYYY-MM-DD HH:mm:ss'
+    //   )}' WHERE id = '${id}'`
+    // );
 
     this.logs.info(`${service.name} - Action: ${action.description}`, 'action');
     switch (action.service.plugin.toLowerCase()) {

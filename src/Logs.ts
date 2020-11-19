@@ -1,7 +1,9 @@
 import { Logger } from 'winston';
 import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment';
+import moment, { relativeTimeThreshold } from 'moment';
+import { Repository } from 'typeorm';
 
+import { LogEntity } from './entities/log.entity';
 import Config from './Types/Config';
 import Database from './Database';
 
@@ -9,11 +11,13 @@ export default class Logs {
   private config: Config;
   private database: Database;
   private logger: Logger;
+  private logRepo: Repository<LogEntity>;
 
   constructor(config: Config, database: Database, logger: Logger) {
     this.config = config;
     this.database = database;
     this.logger = logger;
+    this.logRepo = this.database.connection.getRepository(LogEntity);
     this.init();
   }
 
@@ -21,12 +25,14 @@ export default class Logs {
     this.info('Initialise: Logs', 'core');
   }
 
-  private insertLog(text: string, level: string, type: string) {
-    this.database.connection.query(
-      `INSERT INTO logs (id, text, level, type, createdOn) VALUES ('${uuidv4()}','${text}','${level}','${type}','${moment().format(
-        'YYYY-MM-DD HH:mm:ss'
-      )}')`
-    );
+  private async insertLog(text: string, level: string, type: string) {
+    const log: LogEntity = this.logRepo.create({ text, level, type });
+    await this.logRepo.save(log);
+    // this.database.connection.query(
+    //   `INSERT INTO logs (id, text, level, type, createdOn) VALUES ('${uuidv4()}','${text}','${level}','${type}','${moment().format(
+    //     'YYYY-MM-DD HH:mm:ss'
+    //   )}')`
+    // );
   }
 
   public debug(text: string, type: string) {

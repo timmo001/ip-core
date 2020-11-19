@@ -1,9 +1,11 @@
+import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs';
 import * as YAML from 'yaml';
 import handlebars from 'handlebars';
 import moment from 'moment';
 
+import { EventEntity } from './entities/event.entity';
 import Action from './Types/Action';
 import Base from './Base';
 import Config from './Types/Config';
@@ -17,12 +19,14 @@ import Service from './Types/Service';
 import Variables from './Types/Variables';
 
 export default class Services extends Base {
-  data: any;
-  runner: Runner;
+  private data: any;
+  private eventRepo: Repository<EventEntity>;
+  private runner: Runner;
 
   constructor(config: Config, database: Database, logs: Logs) {
     super(config, database, logs);
     this.runner = new Runner(config, database, logs);
+    this.eventRepo = this.database.connection.getRepository(EventEntity);
   }
 
   async init() {
@@ -54,11 +58,18 @@ export default class Services extends Base {
   }
 
   runService = async (event: EventPayload): Promise<Generic> => {
-    const id = uuidv4();
-    const startedDate = moment().format('YYYY-MM-DD HH:mm:ss');
-    await this.database.connection.query(
-      `INSERT INTO events (id,service,endpoint,status,startedOn,updatedOn) VALUES ('${id}','${event.serviceKey}','${event.endpointKey}','Started','${startedDate}','${startedDate}')`
-    );
+    // const id = uuidv4();
+    // const startedDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    const dbEvent = this.eventRepo.create({
+      service: event.serviceKey,
+      endpoint: event.endpointKey,
+      status: 'Started',
+    });
+    await this.eventRepo.save(dbEvent);
+
+    // await this.database.connection.query(
+    //   `INSERT INTO events (id,service,endpoint,status,startedOn,updatedOn) VALUES ('${id}','${event.serviceKey}','${event.endpointKey}','Started','${startedDate}','${startedDate}')`
+    // );
 
     try {
       const path = `${this.config.services_directory}${
@@ -150,7 +161,7 @@ export default class Services extends Base {
           'serviceAction'
         );
         this.data = await this.runner.runAction(
-          id,
+          dbEvent.id,
           service,
           action,
           action.requires === 'previous' ? this.data : undefined
@@ -160,19 +171,26 @@ export default class Services extends Base {
           'serviceAction'
         );
       }
-      const completeDate = moment().format('YYYY-MM-DD HH:mm:ss');
-      await this.database.connection.query(
-        `UPDATE events SET status = 'Completed', updatedOn = '${completeDate}', completedOn = '${completeDate}' WHERE id = '${id}'`
-      );
+      await this.eventRepo.update(dbEvent.id, {
+        status: 'Completed',
+      });
+      // const completeDate = moment().format('YYYY-MM-DD HH:mm:ss');
+      // await this.database.connection.query(
+      //   `UPDATE events SET status = 'Completed', updatedOn = '${completeDate}', completedOn = '${completeDate}' WHERE id = '${id}'`
+      // );
     } catch (err) {
       this.logs.error(err, 'service');
-      await this.database.connection.query(
-        `UPDATE events SET status = 'error', message = '${
-          err.message
-        }', updatedOn =  '${moment().format(
-          'YYYY-MM-DD HH:mm:ss'
-        )}' WHERE id = '${id}'`
-      );
+      await this.eventRepo.update(dbEvent.id, {
+        status: 'Error',
+        message: JSON.stringify(err.message),
+      });
+      // await this.database.connection.query(
+      //   `UPDATE events SET status = 'error', message = '${
+      //     err.message
+      //   }', updatedOn =  '${moment().format(
+      //     'YYYY-MM-DD HH:mm:ss'
+      //   )}' WHERE id = '${id}'`
+      // );
       this.data = { errorCode: 500, message: err.message };
     }
     return this.data;

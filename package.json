@@ -22,6 +22,8 @@
     "logform": "2.2.0",
     "mariadb": "2.5.1",
     "moment": "2.29.1",
+    "mysql": "2.18.1",
+    "typeorm": "0.2.29",
     "upaas-core-plugins": "0.2.5",
     "uuid": "8.3.1",
     "winston": "3.3.3",

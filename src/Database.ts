@@ -27,7 +27,7 @@ export default class Database {
       password: this.config.database.password,
       database: this.config.database.database,
       entities: [EventEntity, LogEntity],
-      synchronize: true,
+      synchronize: false,
     });
   }
 }

@@ -1,35 +1,32 @@
-import { Connection } from 'mariadb';
-import { Logger } from 'winston';
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs';
 import * as YAML from 'yaml';
-import moment from 'moment';
 import handlebars from 'handlebars';
+import moment from 'moment';
 
-import Action from '../Types/Action';
-import Base from '../Base';
-import Config from '../Types/Config';
-import Database from '../Database/Database';
-import EventPayload from '../Types/EventPayload';
-import Generic from '../Types/Generic';
-import GenericObject from '../Types/GenericObject';
-import Runner from '../Runner/Runner';
-import Service from '../Types/Service';
-import Variables from '../Types/Variables';
+import Action from './Types/Action';
+import Base from './Base';
+import Config from './Types/Config';
+import Database from './Database';
+import EventPayload from './Types/EventPayload';
+import Generic from './Types/Generic';
+import GenericObject from './Types/GenericObject';
+import Logs from './Logs';
+import Runner from './Runner';
+import Service from './Types/Service';
+import Variables from './Types/Variables';
 
 export default class Services extends Base {
   data: any;
   runner: Runner;
-  database: Database;
 
-  constructor(logger: Logger, config: Config) {
-    super(logger, config);
-    this.runner = new Runner(logger, config);
-    this.database = new Database(logger, config);
+  constructor(config: Config, database: Database, logs: Logs) {
+    super(config, database, logs);
+    this.runner = new Runner(config, database, logs);
   }
 
   async init() {
-    this.logger.info('Initialise: Services');
+    this.logs.info('Initialise: Services', 'services');
   }
 
   async parseTemplate(variables: Variables, item: any): Promise<any> {
@@ -58,11 +55,9 @@ export default class Services extends Base {
 
   runService = async (event: EventPayload): Promise<Generic> => {
     const id = uuidv4();
-
     const startedDate = moment().format('YYYY-MM-DD HH:mm:ss');
-    const connection: Connection = await this.database.pool.getConnection();
-    await connection.query(
-      `INSERT INTO events (id,service,status,started,updated) VALUES ('${id}','${event.serviceKey}','Started','${startedDate}','${startedDate}')`
+    await this.database.connection.query(
+      `INSERT INTO events (id,service,endpoint,status,startedOn,updatedOn) VALUES ('${id}','${event.serviceKey}','${event.endpointKey}','Started','${startedDate}','${startedDate}')`
     );
 
     try {
@@ -72,11 +67,14 @@ export default class Services extends Base {
       const data = fs.readFileSync(path, { encoding: 'utf8' });
       const service: Service = YAML.parse(data);
       if (!service) {
-        this.logger.error(`Could not parse yaml file. ${path}`);
+        this.logs.error(`Could not parse yaml file. ${path}`, 'service');
         return null;
       }
-      this.logger.info(`Run Service: ${service.name} (${event.serviceKey})`);
-      this.logger.debug(`Description: ${service.description}`);
+      this.logs.info(
+        `Run Service: ${service.name} (${event.serviceKey})`,
+        'service'
+      );
+      this.logs.debug(`Description: ${service.description}`, 'service');
 
       const variables: Variables = {
         config: service.config,
@@ -85,11 +83,17 @@ export default class Services extends Base {
         headers: event.data.headers,
         body: event.data.body,
       };
-      this.logger.debug(`Config: ${JSON.stringify(variables.config)}`);
-      this.logger.debug(`DB: ${JSON.stringify(variables.db)}`);
-      this.logger.debug(`Parameters: ${JSON.stringify(variables.parameters)}`);
-      this.logger.debug(`Headers: ${JSON.stringify(variables.headers)}`);
-      this.logger.debug(`Body: ${JSON.stringify(variables.body)}`);
+      this.logs.debug(`Config: ${JSON.stringify(variables.config)}`, 'service');
+      this.logs.debug(`DB: ${JSON.stringify(variables.db)}`, 'service');
+      this.logs.debug(
+        `Parameters: ${JSON.stringify(variables.parameters)}`,
+        'service'
+      );
+      this.logs.debug(
+        `Headers: ${JSON.stringify(variables.headers)}`,
+        'service'
+      );
+      this.logs.debug(`Body: ${JSON.stringify(variables.body)}`, 'service');
 
       for (let i = 0; i < service.actions.length; i++) {
         let action: Action = service.actions[i];
@@ -97,19 +101,28 @@ export default class Services extends Base {
           variables,
           action.description
         );
-        this.logger.debug(`action.description: ${action.description}`);
+        this.logs.debug(
+          `action.description: ${action.description}`,
+          'serviceActoin'
+        );
         action.requires = await this.parseTemplate(variables, action.requires);
-        this.logger.debug(`action.requires: ${action.requires}`);
+        this.logs.debug(`action.requires: ${action.requires}`, 'serviceAction');
         action.service.plugin = await this.parseTemplate(
           variables,
           action.service.plugin
         );
-        this.logger.debug(`action.service.plugin: ${action.service.plugin}`);
+        this.logs.debug(
+          `action.service.plugin: ${action.service.plugin}`,
+          'serviceAction'
+        );
         action.service.service = await this.parseTemplate(
           variables,
           action.service.service
         );
-        this.logger.debug(`action.service.service: ${action.service.service}`);
+        this.logs.debug(
+          `action.service.service: ${action.service.service}`,
+          'serviceAction'
+        );
 
         if (action.parameters !== undefined && action.parameters !== null) {
           let parameters: GenericObject = {};
@@ -123,35 +136,40 @@ export default class Services extends Base {
           }
           action.parameters = parameters;
         }
-        this.logger.debug(
-          `action.parameters: ${JSON.stringify(action.parameters)}`
+        this.logs.debug(
+          `action.parameters: ${JSON.stringify(action.parameters)}`,
+          'serviceAction'
         );
 
-        this.logger.debug(`Action (Parsed): ${JSON.stringify(action)}`);
-        this.logger.debug(
-          `${service.name} - Action: ${action.description} - this.data pre: ${this.data}`
+        this.logs.debug(
+          `Action (Parsed): ${JSON.stringify(action)}`,
+          'serviceAction'
+        );
+        this.logs.debug(
+          `${service.name} - Action: ${action.description} - this.data pre: ${this.data}`,
+          'serviceAction'
         );
         this.data = await this.runner.runAction(
           id,
-          connection,
           service,
           action,
           action.requires === 'previous' ? this.data : undefined
         );
-        this.logger.debug(
-          `${service.name} - Action: ${action.description} - this.data post: ${this.data}`
+        this.logs.debug(
+          `${service.name} - Action: ${action.description} - this.data post: ${this.data}`,
+          'serviceAction'
         );
       }
       const completeDate = moment().format('YYYY-MM-DD HH:mm:ss');
-      await connection.query(
-        `UPDATE events SET status = 'Completed', updated = '${completeDate}', completed = '${completeDate}' WHERE id = '${id}'`
+      await this.database.connection.query(
+        `UPDATE events SET status = 'Completed', updatedOn = '${completeDate}', completedOn = '${completeDate}' WHERE id = '${id}'`
       );
     } catch (err) {
-      this.logger.error(err);
-      await connection.query(
+      this.logs.error(err, 'service');
+      await this.database.connection.query(
         `UPDATE events SET status = 'error', message = '${
           err.message
-        }', updated =  '${moment().format(
+        }', updatedOn =  '${moment().format(
           'YYYY-MM-DD HH:mm:ss'
         )}' WHERE id = '${id}'`
       );
@@ -162,7 +180,7 @@ export default class Services extends Base {
 
   runCallback = (error: Error | null, data: any) => {
     if (error) {
-      this.logger.error(error);
+      this.logs.error(error.message, 'serviceCallback');
       return;
     }
     this.data = data;

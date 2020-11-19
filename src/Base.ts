@@ -1,18 +1,20 @@
-import { Logger } from 'winston';
-
 import Config from './Types/Config';
+import Database from './Database';
+import Logs from './Logs';
 
 export default class Base {
-  public logger: Logger;
   public config: Config;
+  public database: Database;
+  public logs: Logs;
 
-  constructor(logger: Logger, config: Config) {
-    this.logger = logger;
+  constructor(config: Config, database: Database, logs: Logs) {
     this.config = config;
+    this.database = database;
+    this.logs = logs;
     this.init();
   }
 
-  init() {
+  async init() {
     throw new Error('Method not implemented.');
   }
 }

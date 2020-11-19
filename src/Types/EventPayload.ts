@@ -7,6 +7,7 @@ export default interface EventPayload {
   resultOnly?: boolean;
   service: string;
   serviceKey?: string;
+  endpointKey?: string;
   started?: string;
   status?: string;
   token?: string;

@@ -3,6 +3,8 @@ import * as fs from 'fs';
 import * as YAML from 'yaml';
 
 import Config from './Types/Config';
+import Database from './Database';
+import Logs from './Logs';
 import Main from './Main';
 
 const config: Config = YAML.parse(
@@ -20,4 +22,7 @@ const logger = createLogger({
   transports: [new transports.Console()],
 });
 
-new Main(logger, config);
+const database = new Database(config, logger, () => {
+  const logs = new Logs(config, database, logger);
+  new Main(config, database, logs);
+});

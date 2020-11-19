@@ -1,39 +1,38 @@
-import { Connection } from 'mariadb';
 import { Core } from 'upaas-core-plugins';
-import { Logger } from 'winston';
 import moment from 'moment';
 
-import Action from '../Types/Action';
-import Base from '../Base';
-import Config from '../Types/Config';
-import Generic from '../Types/Generic';
-import Service from '../Types/Service';
+import Action from './Types/Action';
+import Base from './Base';
+import Config from './Types/Config';
+import Database from './Database';
+import Generic from './Types/Generic';
+import Logs from './Logs';
+import Service from './Types/Service';
 
 export default class Runner extends Base {
-  constructor(logger: Logger, config: Config) {
-    super(logger, config);
+  constructor(config: Config, database: Database, logs: Logs) {
+    super(config, database, logs);
   }
 
-  init() {
-    this.logger.info('Initialise: Runner');
+  async init() {
+    this.logs.info('Initialise: Runner', 'runner');
   }
 
   runAction = async (
     id: string,
-    connection: Connection,
     service: Service,
     action: Action,
     data?: any
   ): Promise<Generic> => {
-    await connection.query(
+    await this.database.connection.query(
       `UPDATE events SET status = "Running - ${
         action.description
-      }", updated = '${moment().format(
+      }", updatedOn = '${moment().format(
         'YYYY-MM-DD HH:mm:ss'
       )}' WHERE id = '${id}'`
     );
 
-    this.logger.info(`${service.name} - Action: ${action.description}`);
+    this.logs.info(`${service.name} - Action: ${action.description}`, 'action');
     switch (action.service.plugin.toLowerCase()) {
       default:
         return null;

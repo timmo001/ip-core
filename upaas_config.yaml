@@ -1,11 +1,11 @@
 ---
 backend:
   api_port: 5684
-  secret: 'YOUR_SECRET_HERE'
-  token_expiry: '1800s'
+  secret: YOUR_SECRET_HERE
+  token_expiry: 1800s
 core:
-  host: 'localhost'
-  log_level: 'debug'
+  host: localhost
+  log_level: debug
   socket_port: 1337
 database:
   database: upaas
@@ -13,5 +13,5 @@ database:
   password: password1234
   port: 3306
   username: upaasuser
-services_directory: '../upaas_services'
-token: 'YOUR_TOKEN_HERE'
+services_directory: ../upaas_services
+token: YOUR_TOKEN_HERE

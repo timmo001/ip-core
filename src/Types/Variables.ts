@@ -7,4 +7,5 @@ export default interface Variables {
   db?: GenericObject;
   headers?: GenericObject;
   parameters?: GenericObject;
+  results?: GenericObject;
 }

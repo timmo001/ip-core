@@ -29,6 +29,10 @@ export default class Services extends Base {
 
   async init() {
     this.logs.info('Initialise: Services', 'services');
+    handlebars.registerHelper(
+      'json',
+      (context) => new handlebars.SafeString(JSON.stringify(context))
+    );
   }
 
   async parseTemplate(variables: Variables, item: any): Promise<any> {
@@ -42,7 +46,15 @@ export default class Services extends Base {
     switch (typeof item) {
       case 'string':
         const hbCompiled = handlebars.compile(item)(variables);
-        return isNaN(Number(hbCompiled)) ? hbCompiled : Number(hbCompiled);
+        if (!isNaN(Number(hbCompiled))) return Number(hbCompiled);
+        if (hbCompiled.includes('{') || hbCompiled.includes('[')) {
+          try {
+            return JSON.parse(hbCompiled);
+          } catch (e) {
+            return hbCompiled;
+          }
+        }
+        return hbCompiled;
       case 'object':
         const entries = Object.entries(item);
         for (let i = 0; i < entries.length; i++) {
@@ -80,11 +92,12 @@ export default class Services extends Base {
       this.logs.debug(`Description: ${service.description}`, 'service');
 
       const variables: Variables = {
+        body: event.data.body,
         config: service.config,
         db: {},
-        parameters: event.data.parameters,
         headers: event.data.headers,
-        body: event.data.body,
+        parameters: event.data.parameters,
+        results: {},
       };
       this.logs.debug(`Config: ${JSON.stringify(variables.config)}`, 'service');
       this.logs.debug(`DB: ${JSON.stringify(variables.db)}`, 'service');
@@ -100,6 +113,10 @@ export default class Services extends Base {
 
       for (let i = 0; i < service.actions.length; i++) {
         let action: Action = service.actions[i];
+        this.logs.info(
+          `Run Action: ${action.description} (${action.id})`,
+          'serviceAction'
+        );
         action.description = await this.parseTemplate(
           variables,
           action.description
@@ -143,25 +160,13 @@ export default class Services extends Base {
           `action.parameters: ${JSON.stringify(action.parameters)}`,
           'serviceAction'
         );
-
-        this.logs.debug(
-          `Action (Parsed): ${JSON.stringify(action)}`,
-          'serviceAction'
-        );
-        this.logs.debug(
-          `${service.name} - Action: ${action.description} - this.data pre: ${JSON.stringify(this.data)}`,
-          'serviceAction'
-        );
         this.data = await this.runner.runAction(
           dbEvent.id,
           service,
           action,
           action.requires === 'previous' ? this.data : undefined
         );
-        this.logs.debug(
-          `${service.name} - Action: ${action.description} - this.data post: ${JSON.stringify(this.data)}`,
-          'serviceAction'
-        );
+        variables.results[action.id] = this.data;
       }
       await this.eventRepo.update(dbEvent.id, {
         status: 'Completed',

@@ -24,7 +24,7 @@
     "moment": "2.29.1",
     "mysql": "2.18.1",
     "typeorm": "0.2.29",
-    "upaas-core-plugins": "0.2.5",
+    "upaas-core-plugins": "0.3.0",
     "uuid": "8.3.1",
     "winston": "3.3.3",
     "ws": "7.4.0",

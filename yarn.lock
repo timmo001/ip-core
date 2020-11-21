@@ -4500,10 +4500,10 @@ unset-value@^1.0.0:
     has-value "^0.3.1"
     isobject "^3.0.0"
 
-upaas-core-plugins@0.2.5:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/upaas-core-plugins/-/upaas-core-plugins-0.2.5.tgz#cb8948dd6a576c8022fdaaf4cf7eeb06d0b66ca6"
-  integrity sha512-o0KXeso80Rb6ZY+MpnY30scaDlkMiDXNLIavaYRXDSDRfRgzis/Wth/C/cW5gLWJcnO8UF6Fh9orj6pCDPfGNg==
+upaas-core-plugins@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/upaas-core-plugins/-/upaas-core-plugins-0.3.0.tgz#ac76369aebec7e9969cddd377106a3943935c75d"
+  integrity sha512-H/e9cP7nyeSJioH1yu8r9TfzRTBssuCNtLv+GhR8e5J+vbcF+8nns21b0VKAXdVucn2yhyxU/UQnhGHkp8Hdgw==
   dependencies:
     axios "0.21.0"
     papaparse "5.3.0"

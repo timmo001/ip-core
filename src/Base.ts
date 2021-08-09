@@ -1,6 +1,6 @@
-import Config from './Types/Config';
-import Database from './Database';
-import Logs from './Logs';
+import Config from "./Types/Config";
+import Database from "./Database";
+import Logs from "./Logs";
 
 export default class Base {
   public config: Config;
@@ -15,6 +15,6 @@ export default class Base {
   }
 
   async init() {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 }

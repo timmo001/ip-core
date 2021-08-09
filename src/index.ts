@@ -1,14 +1,14 @@
-import { createLogger, format, transports } from 'winston';
-import * as fs from 'fs';
-import * as YAML from 'yaml';
+import { createLogger, format, transports } from "winston";
+import * as fs from "fs";
+import * as YAML from "yaml";
 
-import Config from './Types/Config';
-import Database from './Database';
-import Logs from './Logs';
-import Main from './Main';
+import Config from "./Types/Config";
+import Database from "./Database";
+import Logs from "./Logs";
+import Main from "./Main";
 
 const config: Config = YAML.parse(
-  fs.readFileSync('./upaas_config.yaml', 'utf8')
+  fs.readFileSync("./upaas_config.yaml", "utf8")
 );
 
 const logger = createLogger({

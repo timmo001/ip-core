@@ -1,6 +1,6 @@
-import Action from './Action';
-import Condition from './Condition';
-import GenericObject from './GenericObject';
+import Action from "./Action";
+import Condition from "./Condition";
+import GenericObject from "./GenericObject";
 
 export default interface Service {
   name: string;

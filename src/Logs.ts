@@ -1,11 +1,11 @@
-import { Logger } from 'winston';
-import { v4 as uuidv4 } from 'uuid';
-import moment, { relativeTimeThreshold } from 'moment';
-import { Repository } from 'typeorm';
+import { Logger } from "winston";
+import { v4 as uuidv4 } from "uuid";
+import moment, { relativeTimeThreshold } from "moment";
+import { Repository } from "typeorm";
 
-import { LogEntity } from './entities/log.entity';
-import Config from './Types/Config';
-import Database from './Database';
+import { LogEntity } from "./entities/log.entity";
+import Config from "./Types/Config";
+import Database from "./Database";
 
 export default class Logs {
   private config: Config;
@@ -22,7 +22,7 @@ export default class Logs {
   }
 
   async init() {
-    this.info('Initialise: Logs', 'core');
+    this.info("Initialise: Logs", "core");
   }
 
   private async insertLog(text: string, level: string, type: string) {
@@ -36,42 +36,42 @@ export default class Logs {
   }
 
   public debug(text: string, type: string) {
-    if (this.config.core.log_level === 'debug') {
+    if (this.config.core.log_level === "debug") {
       this.logger.debug(text);
-      this.insertLog(text, 'debug', type);
+      this.insertLog(text, "debug", type);
     }
   }
 
   public info(text: string, type: string) {
     if (
-      this.config.core.log_level === 'debug' ||
-      this.config.core.log_level === 'info'
+      this.config.core.log_level === "debug" ||
+      this.config.core.log_level === "info"
     ) {
       this.logger.info(text);
-      this.insertLog(text, 'info', type);
+      this.insertLog(text, "info", type);
     }
   }
 
   public warn(text: string, type: string) {
     if (
-      this.config.core.log_level === 'debug' ||
-      this.config.core.log_level === 'info' ||
-      this.config.core.log_level === 'warn'
+      this.config.core.log_level === "debug" ||
+      this.config.core.log_level === "info" ||
+      this.config.core.log_level === "warn"
     ) {
       this.logger.warn(text);
-      this.insertLog(text, 'warning', type);
+      this.insertLog(text, "warning", type);
     }
   }
 
   public error(text: string, type: string) {
     if (
-      this.config.core.log_level === 'debug' ||
-      this.config.core.log_level === 'info' ||
-      this.config.core.log_level === 'warn' ||
-      this.config.core.log_level === 'error'
+      this.config.core.log_level === "debug" ||
+      this.config.core.log_level === "info" ||
+      this.config.core.log_level === "warn" ||
+      this.config.core.log_level === "error"
     ) {
       this.logger.error(text);
-      this.insertLog(text, 'error', type);
+      this.insertLog(text, "error", type);
     }
   }
 }

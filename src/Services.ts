@@ -1,20 +1,20 @@
-import { Repository } from 'typeorm';
-import * as fs from 'fs';
-import * as YAML from 'yaml';
-import handlebars from 'handlebars';
+import { Repository } from "typeorm";
+import * as fs from "fs";
+import * as YAML from "yaml";
+import handlebars from "handlebars";
 
-import { EventEntity } from './entities/event.entity';
-import Action from './Types/Action';
-import Base from './Base';
-import Config from './Types/Config';
-import Database from './Database';
-import EventPayload from './Types/EventPayload';
-import Generic from './Types/Generic';
-import GenericObject from './Types/GenericObject';
-import Logs from './Logs';
-import Runner from './Runner';
-import Service from './Types/Service';
-import Variables from './Types/Variables';
+import { EventEntity } from "./entities/event.entity";
+import Action from "./Types/Action";
+import Base from "./Base";
+import Config from "./Types/Config";
+import Database from "./Database";
+import EventPayload from "./Types/EventPayload";
+import Generic from "./Types/Generic";
+import GenericObject from "./Types/GenericObject";
+import Logs from "./Logs";
+import Runner from "./Runner";
+import Service from "./Types/Service";
+import Variables from "./Types/Variables";
 
 export default class Services extends Base {
   private data: any;
@@ -28,9 +28,9 @@ export default class Services extends Base {
   }
 
   async init() {
-    this.logs.info('Initialise: Services', 'services');
+    this.logs.info("Initialise: Services", "services");
     handlebars.registerHelper(
-      'json',
+      "json",
       (context) => new handlebars.SafeString(JSON.stringify(context))
     );
   }
@@ -44,10 +44,10 @@ export default class Services extends Base {
       return arrParsed;
     }
     switch (typeof item) {
-      case 'string':
+      case "string":
         const hbCompiled = handlebars.compile(item)(variables);
         if (!isNaN(Number(hbCompiled))) return Number(hbCompiled);
-        if (hbCompiled.includes('{') || hbCompiled.includes('[')) {
+        if (hbCompiled.includes("{") || hbCompiled.includes("[")) {
           try {
             return JSON.parse(hbCompiled);
           } catch (e) {
@@ -55,7 +55,7 @@ export default class Services extends Base {
           }
         }
         return hbCompiled;
-      case 'object':
+      case "object":
         const entries = Object.entries(item);
         for (let i = 0; i < entries.length; i++) {
           const [key, value] = entries[i];
@@ -71,25 +71,25 @@ export default class Services extends Base {
     const dbEvent = this.eventRepo.create({
       service: event.serviceKey,
       endpoint: event.endpointKey,
-      status: 'Started',
+      status: "Started",
     });
     await this.eventRepo.save(dbEvent);
 
     try {
       const path = `${this.config.services_directory}${
-        this.config.services_directory.endsWith('/') ? '' : '/'
+        this.config.services_directory.endsWith("/") ? "" : "/"
       }${event.serviceKey}.yaml`;
-      const data = fs.readFileSync(path, { encoding: 'utf8' });
+      const data = fs.readFileSync(path, { encoding: "utf8" });
       const service: Service = YAML.parse(data);
       if (!service) {
-        this.logs.error(`Could not parse yaml file. ${path}`, 'service');
+        this.logs.error(`Could not parse yaml file. ${path}`, "service");
         return null;
       }
       this.logs.info(
         `Run Service: ${service.name} (${event.serviceKey})`,
-        'service'
+        "service"
       );
-      this.logs.debug(`Description: ${service.description}`, 'service');
+      this.logs.debug(`Description: ${service.description}`, "service");
 
       const variables: Variables = {
         body: event.data.body,
@@ -99,23 +99,23 @@ export default class Services extends Base {
         parameters: event.data.parameters,
         results: {},
       };
-      this.logs.debug(`Config: ${JSON.stringify(variables.config)}`, 'service');
-      this.logs.debug(`DB: ${JSON.stringify(variables.db)}`, 'service');
+      this.logs.debug(`Config: ${JSON.stringify(variables.config)}`, "service");
+      this.logs.debug(`DB: ${JSON.stringify(variables.db)}`, "service");
       this.logs.debug(
         `Parameters: ${JSON.stringify(variables.parameters)}`,
-        'service'
+        "service"
       );
       this.logs.debug(
         `Headers: ${JSON.stringify(variables.headers)}`,
-        'service'
+        "service"
       );
-      this.logs.debug(`Body: ${JSON.stringify(variables.body)}`, 'service');
+      this.logs.debug(`Body: ${JSON.stringify(variables.body)}`, "service");
 
       for (let i = 0; i < service.actions.length; i++) {
         let action: Action = service.actions[i];
         this.logs.info(
           `Run Action: ${action.description} (${action.id})`,
-          'serviceAction'
+          "serviceAction"
         );
         action.description = await this.parseTemplate(
           variables,
@@ -123,17 +123,17 @@ export default class Services extends Base {
         );
         this.logs.debug(
           `action.description: ${action.description}`,
-          'serviceActoin'
+          "serviceActoin"
         );
         action.requires = await this.parseTemplate(variables, action.requires);
-        this.logs.debug(`action.requires: ${action.requires}`, 'serviceAction');
+        this.logs.debug(`action.requires: ${action.requires}`, "serviceAction");
         action.service.plugin = await this.parseTemplate(
           variables,
           action.service.plugin
         );
         this.logs.debug(
           `action.service.plugin: ${action.service.plugin}`,
-          'serviceAction'
+          "serviceAction"
         );
         action.service.service = await this.parseTemplate(
           variables,
@@ -141,7 +141,7 @@ export default class Services extends Base {
         );
         this.logs.debug(
           `action.service.service: ${action.service.service}`,
-          'serviceAction'
+          "serviceAction"
         );
 
         if (action.parameters !== undefined && action.parameters !== null) {
@@ -158,24 +158,24 @@ export default class Services extends Base {
         }
         this.logs.debug(
           `action.parameters: ${JSON.stringify(action.parameters)}`,
-          'serviceAction'
+          "serviceAction"
         );
         this.data = await this.runner.runAction(
           dbEvent.id,
           service,
           action,
-          action.requires === 'previous' ? this.data : undefined
+          action.requires === "previous" ? this.data : undefined
         );
         variables.results[action.id] = this.data;
       }
       await this.eventRepo.update(dbEvent.id, {
-        status: 'Completed',
+        status: "Completed",
         message: JSON.stringify(this.data),
       });
     } catch (err) {
-      this.logs.error(err, 'service');
+      this.logs.error(err, "service");
       await this.eventRepo.update(dbEvent.id, {
-        status: 'Error',
+        status: "Error",
         message: JSON.stringify(err.message),
       });
       this.data = { errorCode: 500, message: err.message };
@@ -185,7 +185,7 @@ export default class Services extends Base {
 
   runCallback = (error: Error | null, data: any) => {
     if (error) {
-      this.logs.error(error.message, 'serviceCallback');
+      this.logs.error(error.message, "serviceCallback");
       return;
     }
     this.data = data;

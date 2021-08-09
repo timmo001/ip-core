@@ -1,54 +1,70 @@
 {
-  "name": "upaas",
-  "private": true,
+  "name": "ip-core",
   "version": "1.0.0",
-  "description": "Lorem ipsum",
+  "description": "ip core",
+  "private": true,
+  "author": {
+    "name": "Aidan Timson <Timmo>",
+    "email": "contact@timmo.xyz",
+    "url": "https://ip.timmo.dev"
+  },
+  "keywords": [
+    "ip"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timmo001/ip-core"
+  },
   "license": "MIT",
+  "bin": "dist",
   "scripts": {
-    "compile": "shx rm -rf dist/ && tsc",
+    "build": "rimraf dist/ && tsc",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "start": "yarn run compile && node dist",
+    "package": "rimraf out && yarn build && node scripts/package.js",
+    "start": "yarn build && node dist",
     "start:dev": "nodemon",
     "start:prod": "node dist",
     "test": "jest",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "test:watch": "jest --watch"
+    "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "better-sqlite3": "7.4.3",
     "handlebars": "4.7.7",
     "logform": "2.2.0",
-    "mariadb": "2.5.3",
+    "mariadb": "2.5.4",
     "moment": "2.29.1",
     "mysql": "2.18.1",
-    "typeorm": "0.2.31",
+    "typeorm": "0.2.36",
     "upaas-core-plugins": "0.4.0",
     "uuid": "8.3.2",
     "winston": "3.3.3",
-    "ws": "7.4.4",
-    "yaml": "1.10.0"
+    "ws": "8.0.0",
+    "yaml": "1.10.2"
   },
   "devDependencies": {
     "@types/logform": "1.10.1",
-    "@types/node": "14.14.32",
-    "@types/uuid": "8.3.0",
+    "@types/node": "16.4.13",
+    "@types/uuid": "8.3.1",
     "@types/winston": "2.4.4",
-    "@types/ws": "7.4.0",
-    "eslint": "7.21.0",
-    "eslint-config-prettier": "6.15.0",
-    "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-prettier": "3.3.1",
-    "jest": "26.6.3",
-    "nodemon": "2.0.7",
-    "prettier": "2.2.1",
-    "shx": "0.3.3",
-    "ts-jest": "26.5.3",
-    "ts-loader": "8.0.10",
-    "ts-node": "9.1.1",
-    "tsconfig-paths": "3.9.0",
-    "typescript": "4.2.3"
+    "eslint": "7.32.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.24.0",
+    "eslint-plugin-prettier": "3.4.0",
+    "jest": "27.0.6",
+    "nodemon": "2.0.12",
+    "pkg": "5.3.1",
+    "rimraf": "3.0.2",
+    "ts-jest": "27.0.4",
+    "ts-loader": "9.2.5",
+    "ts-node": "10.2.0",
+    "tsconfig-paths": "3.10.1",
+    "typescript": "4.3.5"
+  },
+  "optionalDependencies": {
+    "node-hide-console-window": "2.1.0"
   },
   "nodemonConfig": {
     "ignore": [
@@ -78,5 +94,15 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "pkg": {
+    "assets": [
+      "node_modules/**/*"
+    ],
+    "outputPath": "out",
+    "scripts": "dist/main.js",
+    "targets": [
+      "host"
+    ]
   }
 }

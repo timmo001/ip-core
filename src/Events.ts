@@ -1,11 +1,11 @@
-import Base from './Base';
-import Config from './Types/Config';
-import Database from './Database';
-import EventPayload from './Types/EventPayload';
-import Generic from './Types/Generic';
-import Logs from './Logs';
-import Server from './Server';
-import Services from './Services';
+import Base from "./Base";
+import Config from "./Types/Config";
+import Database from "./Database";
+import EventPayload from "./Types/EventPayload";
+import Generic from "./Types/Generic";
+import Logs from "./Logs";
+import Server from "./Server";
+import Services from "./Services";
 
 export default class Events extends Base {
   public server: Server;
@@ -18,12 +18,12 @@ export default class Events extends Base {
   }
 
   async init() {
-    this.logs.info('Initialise: Events', 'events');
+    this.logs.info("Initialise: Events", "events");
   }
 
   private onEvent = async (event: EventPayload): Promise<Generic> => {
     if (!event.serviceKey) {
-      this.logs.warn('No serviceKey provided. Will not continue', 'event');
+      this.logs.warn("No serviceKey provided. Will not continue", "event");
       return null;
     }
     return await this.services.runService(event);

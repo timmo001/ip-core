@@ -1,5 +1,5 @@
-import Generic from './Generic';
-import GenericObject from './GenericObject';
+import Generic from "./Generic";
+import GenericObject from "./GenericObject";
 
 export default interface Data {
   body?: Generic;
@@ -7,7 +7,7 @@ export default interface Data {
   environment?: string;
   headers?: GenericObject;
   id?: string;
-  method?: 'DELETE' | 'GET' | 'POST' | 'PATCH' | 'PUT';
+  method?: "DELETE" | "GET" | "POST" | "PATCH" | "PUT";
   parameters?: GenericObject;
   url?: string;
   version?: string;

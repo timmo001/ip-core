@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=IP Core
+Comment=IP Core
+Type=Application
+Encoding=UTF-8
+Categories=System;Utility;
+Exec=/usr/local/share/ip/ip
+Icon=/usr/local/share/ip/ip-circle.png
+Path=/usr/local/share/ip
+Terminal=false

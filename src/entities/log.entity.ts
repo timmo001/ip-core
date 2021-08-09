@@ -3,20 +3,20 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-} from 'typeorm';
+} from "typeorm";
 
-@Entity('logs')
+@Entity("logs")
 export class LogEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: "text", nullable: false })
   text!: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: "varchar", nullable: false })
   level!: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: "varchar", nullable: false })
   type!: string;
 
   @CreateDateColumn()

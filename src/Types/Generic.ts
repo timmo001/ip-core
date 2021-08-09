@@ -1,4 +1,4 @@
-import GenericObject from './GenericObject';
+import GenericObject from "./GenericObject";
 
 type Generic =
   | string

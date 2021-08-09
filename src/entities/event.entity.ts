@@ -3,23 +3,23 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-} from 'typeorm';
+} from "typeorm";
 
-@Entity('events')
+@Entity("events")
 export class EventEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: "varchar", nullable: false })
   service!: string;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: "varchar", nullable: true })
   endpoint!: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: "varchar", nullable: false })
   status!: string;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: "text", nullable: true })
   message?: string;
 
   @CreateDateColumn()

@@ -1,14 +1,26 @@
-import { createLogger, format, transports } from 'winston';
-import * as fs from 'fs';
-import * as YAML from 'yaml';
+import { createLogger, format, transports } from "winston";
 
-import Config from './Types/Config';
-import Database from './Database';
-import Logs from './Logs';
-import Main from './Main';
+import Config from "./Types/Config";
+import Database from "./Database";
+import Logs from "./Logs";
+import Main from "./Main";
+import { parse } from "yaml";
+import { readFileSync } from "fs";
+import { join } from "path";
 
-const config: Config = YAML.parse(
-  fs.readFileSync('./upaas_config.yaml', 'utf8')
+export function getAppDataDirectory() {
+  return join(
+    process.env.APP_PATH ||
+      process.env.APPDATA ||
+      (process.platform == "darwin"
+        ? process.env.HOME + "/Library/Preferences"
+        : process.env.HOME + "/.local/share"),
+    "ip-data"
+  );
+}
+
+const config: Config = parse(
+  readFileSync(join(getAppDataDirectory(), "config.yml"), "utf8")
 );
 
 const logger = createLogger({

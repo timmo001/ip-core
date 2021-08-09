@@ -1,5 +1,5 @@
-import Generic from './Generic';
-import GenericObject from './GenericObject';
+import Generic from "./Generic";
+import GenericObject from "./GenericObject";
 
 export default interface Variables {
   body?: Generic;

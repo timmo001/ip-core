@@ -77,7 +77,10 @@ export default class Services extends Base {
     await this.eventRepo.save(dbEvent);
 
     try {
-      const path = join(this.config.services_directory,`${event.serviceKey}.yml`);
+      const path = join(
+        this.config.services_directory,
+        `${event.serviceKey}.yml`
+      );
       const data = readFileSync(path, { encoding: "utf8" });
       const service: Service = parse(data);
       if (!service) {

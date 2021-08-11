@@ -1,6 +1,7 @@
+import { join } from "path";
+import { parse } from "yaml";
+import { readFileSync } from "fs";
 import { Repository } from "typeorm";
-import * as fs from "fs";
-import * as YAML from "yaml";
 import handlebars from "handlebars";
 
 import { EventEntity } from "./entities/event.entity";
@@ -76,11 +77,9 @@ export default class Services extends Base {
     await this.eventRepo.save(dbEvent);
 
     try {
-      const path = `${this.config.services_directory}${
-        this.config.services_directory.endsWith("/") ? "" : "/"
-      }${event.serviceKey}.yaml`;
-      const data = fs.readFileSync(path, { encoding: "utf8" });
-      const service: Service = YAML.parse(data);
+      const path = join(this.config.services_directory,`${event.serviceKey}.yml`);
+      const data = readFileSync(path, { encoding: "utf8" });
+      const service: Service = parse(data);
       if (!service) {
         this.logs.error(`Could not parse yaml file. ${path}`, "service");
         return null;

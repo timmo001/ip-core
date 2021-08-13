@@ -1,6 +1,5 @@
-import { Core } from "upaas-core-plugins";
+import { Core } from "ip-core-plugins";
 import { Repository } from "typeorm";
-import moment from "moment";
 
 import { EventEntity } from "./entities/event.entity";
 import Action from "./Types/Action";

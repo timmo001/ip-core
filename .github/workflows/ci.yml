@@ -12,9 +12,9 @@ on:
       - synchronize
   workflow_dispatch:
 
-# concurrency:
-#   group: ${{ github.head_ref || github.ref }}
-#   cancel-in-progress: true
+concurrency:
+  group: ${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lint-eslint:
@@ -30,13 +30,9 @@ jobs:
         with:
           node-version: 16.x
           cache: yarn
-      - name: 🏗 Install linux dependencies
-        run: |
-          sudo apt update
-          sudo apt install libavahi-compat-libdnssd-dev libxtst-dev libpng++-dev libxext-dev libxss-dev
       - name: ⤵️ Install dependencies
         run: |
-          yarn install
+          yarn install --pure-lockfile
         env:
           CI: true
       - name: 🚀 Run ESLint
@@ -138,8 +134,6 @@ jobs:
       - name: 🏗 Install linux dependencies
         if: matrix.os.server == 'ubuntu-latest'
         run: |
-          sudo apt update
-          sudo apt install libavahi-compat-libdnssd-dev libxtst-dev libpng++-dev libxext-dev libxss-dev
           wget https://github.com/goreleaser/nfpm/releases/download/v2.5.1/nfpm_amd64.deb
           sudo apt install ./nfpm_amd64.deb
       - name: ⤵️ Check out code from GitHub
@@ -154,9 +148,8 @@ jobs:
           node-version: 16.x
           cache: yarn
       - name: 🏗 Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          yarn install
+          yarn install --pure-lockfile
       - name: 🏗 Add console hide command for Windows
         if: matrix.os.platform == 'win32'
         run: |
@@ -213,3 +206,58 @@ jobs:
         with:
           name: ${{ matrix.os.name }}-rpm
           path: "*.rpm"
+  build-container:
+    name: 🚀 Build Container - ${{ matrix.architecture }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        architecture:
+          - amd64
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: 🏗 Set up build cache
+        id: cache
+        uses: actions/cache@v2.1.6
+        with:
+          path: /tmp/.docker-cache
+          key: docker-${{ github.ref }}-${{ matrix.architecture }}-${{ github.sha }}
+          restore-keys: |
+            docker-${{ github.ref }}-${{ matrix.architecture }}
+      - name: 🏗 Set up QEMU
+        uses: docker/setup-qemu-action@v1.2.0
+      - name: 🏗 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1.3.0
+      - name: ℹ️ Compose build flags
+        id: flags
+        run: |
+          echo "::set-output name=date::$(date +"%Y-%m-%dT%H:%M:%SZ")"
+          from=$(jq --raw-output ".build_from.${{ matrix.architecture }}" "build.json")
+          echo "::set-output name=from::${from}"
+          if [[ "${{ matrix.architecture}}" = "amd64" ]]; then
+            echo "::set-output name=platform::linux/amd64"
+          else
+            echo "::error ::Could not determine platform for architecture ${{ matrix.architecture }}"
+            exit 1
+          fi
+      - name: 🚀 Build
+        uses: docker/build-push-action@v2.5.0
+        with:
+          push: false
+          context: .
+          file: Dockerfile
+          cache-from: |
+            type=local,src=/tmp/.docker-cache
+            ghcr.io/timmo001/ip-core/${{ matrix.architecture }}:edge
+          cache-to: type=local,mode=max,dest=/tmp/.docker-cache
+          platforms: ${{ steps.flags.outputs.platform }}
+          build-args: |
+            BUILD_ARCH=${{ matrix.architecture }}
+            BUILD_DATE=${{ steps.flags.outputs.date }}
+            BUILD_FROM=${{ steps.flags.outputs.from }}
+            BUILD_REF=${{ github.sha }}
+            BUILD_REPOSITORY=${{ github.repository }}
+            BUILD_VERSION=edge

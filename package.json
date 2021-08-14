@@ -21,7 +21,7 @@
     "build": "rimraf dist/ && tsc",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "package": "rimraf out && yarn build && node scripts/package.js",
+    "package": "rimraf out && yarn build && pkg .",
     "start": "yarn build && node dist",
     "start:dev": "nodemon",
     "start:prod": "node dist",

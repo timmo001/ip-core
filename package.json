@@ -100,7 +100,7 @@
       "node_modules/**/*"
     ],
     "outputPath": "out",
-    "scripts": "dist/main.js",
+    "scripts": "dist/index.js",
     "targets": [
       "host"
     ]

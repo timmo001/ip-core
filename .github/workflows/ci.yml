@@ -131,11 +131,6 @@ jobs:
             server: ubuntu-latest
             platform: linux
     steps:
-      - name: 🏗 Install linux dependencies
-        if: matrix.os.server == 'ubuntu-latest'
-        run: |
-          wget https://github.com/goreleaser/nfpm/releases/download/v2.5.1/nfpm_amd64.deb
-          sudo apt install ./nfpm_amd64.deb
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v2.3.4
         with:
@@ -179,6 +174,8 @@ jobs:
       - name: 🚀 Create linux apk file
         if: matrix.os.platform == 'linux'
         run: |
+          wget https://github.com/goreleaser/nfpm/releases/download/v2.5.1/nfpm_amd64.deb
+          sudo apt install ./nfpm_amd64.deb
           nfpm package --config nfpm.yaml --packager apk
       - name: ⬆ Upload Artifacts - Linux apk
         if: matrix.os.platform == 'linux'

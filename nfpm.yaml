@@ -13,9 +13,9 @@ homepage: "https://ip.timmo.dev"
 license: "MIT"
 contents:
   - src: ./out/*
-    dst: /usr/local/share/ip
-  - src: ./scripts/ip.desktop
-    dst: /usr/share/applications/ip.desktop
+    dst: /usr/local/share/ip-core
+  - src: ./scripts/ip-core.desktop
+    dst: /usr/share/applications/ip-core.desktop
 depends:
   - libavahi-compat-libdnssd-dev
 overrides:

@@ -16,7 +16,7 @@
     "url": "https://github.com/timmo001/ip-core"
   },
   "license": "MIT",
-  "bin": "dist",
+  "bin": "dist/index.js",
   "scripts": {
     "build": "rimraf dist/ && tsc",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

@@ -6,7 +6,7 @@ FROM ${BUILD_FROM}
 COPY rootfs /
 
 # Copy application
-COPY . /opt/app
+COPY . /tmp/app
 
 # Set shell
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
@@ -28,7 +28,7 @@ RUN \
     && apk add --no-cache --virtual .runtime-dependencies \
         nodejs-current=16.6.0-r0 \
     \
-    && cd /opt/app \
+    && cd /tmp/app \
     && jq 'del(.optionalDependencies."node-hide-console-window")' package.json > new-package.json \
     && mv new-package.json package.json \
     && yarn install --pure-lockfile
@@ -37,7 +37,7 @@ RUN \
 RUN \
     set -o pipefail \
     \
-    && cd /opt/app \
+    && cd /tmp/app \
     && yarn install --pure-lockfile \
     && yarn package \
     && cp out/ip-core /bin \

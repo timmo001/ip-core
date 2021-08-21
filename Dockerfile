@@ -21,10 +21,12 @@ RUN \
     && apk add --no-cache --virtual .build-dependencies \
         g++=10.3.1_git20210424-r2	\
         make=4.3-r0	\
-        nodejs-current=16.6.0-r0 \
         npm=7.17.0-r0 \
         python3-dev=3.9.5-r1 \
         yarn=1.22.10-r0 \
+    \
+    && apk add --no-cache --virtual .runtime-dependencies \
+        nodejs-current=16.6.0-r0 \
     \
     && cd /opt/app \
     && jq 'del(.optionalDependencies."node-hide-console-window")' package.json > new-package.json \

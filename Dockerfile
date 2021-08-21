@@ -37,7 +37,6 @@ RUN \
     \
     && cd /opt/app \
     && yarn install --pure-lockfile \
-    && yarn add --exact  \
     && yarn package \
     && cp out/ip-core /bin \
     \

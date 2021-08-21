@@ -6,7 +6,7 @@ FROM ${BUILD_FROM}
 COPY rootfs /
 
 # Copy application
-COPY . /tmp/app
+COPY . /opt/app
 
 # Set shell
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
@@ -26,7 +26,7 @@ RUN \
         python3-dev=3.9.5-r1 \
         yarn=1.22.10-r0 \
     \
-    && cd /tmp/app \
+    && cd /opt/app \
     && jq 'del(.optionalDependencies."node-hide-console-window")' package.json > new-package.json \
     && mv new-package.json package.json \
     && yarn install --pure-lockfile
@@ -35,7 +35,9 @@ RUN \
 RUN \
     set -o pipefail \
     \
-    && cd /tmp/app \
+    && cd /opt/app \
+    && yarn install --pure-lockfile \
+    && yarn add --exact  \
     && yarn package \
     && cp out/ip-core /bin \
     \

@@ -55,7 +55,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "jest": "27.2.5",
     "nodemon": "2.0.13",
-    "pkg": "5.3.3",
+    "pkg": "5.5.2",
     "rimraf": "3.0.2",
     "ts-jest": "27.0.7",
     "ts-loader": "9.2.6",

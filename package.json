@@ -64,7 +64,7 @@
     "typescript": "4.4.4"
   },
   "optionalDependencies": {
-    "node-hide-console-window": "2.1.0"
+    "node-hide-console-window": "2.1.1"
   },
   "nodemonConfig": {
     "ignore": [

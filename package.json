@@ -34,7 +34,7 @@
     "better-sqlite3": "7.4.3",
     "handlebars": "4.7.7",
     "ip-core-plugins": "0.4.0",
-    "logform": "2.3.0",
+    "logform": "2.4.0",
     "mariadb": "2.5.4",
     "moment": "2.29.1",
     "mysql": "2.18.1",

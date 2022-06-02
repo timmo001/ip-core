@@ -124,7 +124,7 @@ jobs:
           - linux-out
     steps:
       - name: ⤵️ Download Artifact - ${{ matrix.artifact }}
-        uses: dawidd6/action-download-artifact@v2.15.0
+        uses: dawidd6/action-download-artifact@v2.21.0
         with:
           name: ${{ matrix.artifact }}
           path: ${{ matrix.artifact }}
@@ -152,7 +152,7 @@ jobs:
           - linux-rpm
     steps:
       - name: ⤵️ Download Artifact - ${{ matrix.artifact }}
-        uses: dawidd6/action-download-artifact@v2.15.0
+        uses: dawidd6/action-download-artifact@v2.21.0
         with:
           name: ${{ matrix.artifact }}
           path: ${{ matrix.artifact }}
